@@ -16,42 +16,40 @@ namespace Zork
         }
 
 
-        private static Commands ToCommand(string inputString)
+        private static Commands ToCommand(string commandString)
         {
             Commands command;
 
-            if (inputString == "QUIT")
+            switch (commandString)
             {
-                command = Commands.QUIT;
-            }
-            else if (inputString == "LOOK")
-            {
+                case "QUIT":
+                    command = Commands.QUIT;
+                    break;
 
-                command = Commands.LOOK;
-            }
-            else if (inputString == "NORTH")
-            {
+                case "LOOK":
+                    command = Commands.LOOK;
+                    break;
 
-                command = Commands.NORTH;
-            }
-            else if (inputString == "SOUTH")
-            {
+                case "NORTH":
+                    command = Commands.NORTH;
+                    break;
 
-                command = Commands.SOUTH;
-            }
-            else if (inputString == "EAST")
-            {
+                case "SOUTH":
+                    command = Commands.SOUTH;
+                    break;
 
-                command = Commands.EAST;
-            }
-            else if (inputString == "WEST")
-            {
+                case "EAST":
+                    command = Commands.EAST;
+                    break;
 
-                command = Commands.WEST;
-            }
-            else
-            {
-                command = Commands.UNKNOWN;
+                case "WEST":
+                    command = Commands.WEST;
+                    break;
+
+                default:
+                    command = Commands.UNKNOWN;
+                    break;
+
             }
 
             return command;
