@@ -13,11 +13,11 @@ namespace Zork
             inputString = inputString.ToUpper();
 
             //bool result = string.Compare(inputString, "QUIT", true) == 0;
-            if (inputString == "QUIT")
+            if (inputString == "QUIT" || inputString == "Q")
             {
                 Console.WriteLine("Thank you for playing!");
             }
-            else if (inputString == "LOOK")
+            else if (inputString == "LOOK" || inputString == "L")
             {
                 Console.WriteLine("This is an open field west of a white house, with a boarded front door.\nA rubber mat reading \"Welcome to Zork\" lies by the door.");
             }
