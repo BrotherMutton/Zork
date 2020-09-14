@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Zork
 {
@@ -16,21 +14,29 @@ namespace Zork
             {
                 for (int row = 0; row < Rooms.GetLength(0); row++)
                 {
-                                      
+                    for (int column = 0; column < Rooms.GetLength(1); column++)
+                    {
+                        if (Rooms[row, column] == value)
+                        {
+                            Location = (row, column);
+                            return;
+                        }
+                    }
                 }
+
+                throw new Exception("Invalid room");
             }
         }
 
         static void Main(string[] args)
         {
-            
+            CurrentRoom = "West of House";
             Console.WriteLine("Welcome to Zork!");
 
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
             {
-                                
-                Console.Write($"{Rooms[Location.Row,Location.Column]}\n> ");
+                Console.Write($"{CurrentRoom}\n> ");
                 command = ToCommand(Console.ReadLine().Trim());
 
                 string outputString;
@@ -49,17 +55,16 @@ namespace Zork
                     case Commands.EAST:
                     case Commands.WEST:
                         Directions direction = (Directions)command;
-                        outputString = Move(direction) ? $"You moved {command}" : $"The way is shut!";
+                        outputString = Move(direction) ? $"You moved {direction}" : $"The way is shut!";
                         break;
 
                     default:
                         outputString = "Unknown command.";
                         break;
                 }
+
                 Console.WriteLine(outputString);
-
             }
-
         }
 
         private static Commands ToCommand(string commandString)
@@ -72,37 +77,36 @@ namespace Zork
             {
                 return Commands.UNKNOWN;
             }
-
         }
 
         private static bool Move(Directions direction)
         {
-                        
-            bool didMove = false;
+            bool didMove;
 
-            if (direction == Directions.EAST && Location.Column < Rooms.GetLength(1) - 1)
+            switch (direction)
             {
-                Location.Column++;
-                didMove = true;
-            }
-            else if (direction == Directions.WEST && Location.Column > 0)
-            {
-                Location.Column--;
-                didMove = true;
-            }
-            else if (direction == Directions.SOUTH && Location.Row < Rooms.GetLength(0) - 1)
-            {
-                Location.Row++;
-                didMove = true;
-            }
-            else if (direction == Directions.NORTH && Location.Row > 0)
-            {
-                Location.Row--;
-                didMove = true;
+                case Directions.NORTH when Location.Row > 0:
+                    Location.Row--;
+                    didMove = true;
+                    break;
+                case Directions.SOUTH when Location.Row < Rooms.GetLength(0) - 1:
+                    Location.Row++;
+                    didMove = true;
+                    break;
+                case Directions.EAST when Location.Column < Rooms.GetLength(1) - 1:
+                    Location.Column++;
+                    didMove = true;
+                    break;
+                case Directions.WEST when Location.Column > 0:
+                    Location.Column--;
+                    didMove = true;
+                    break;
+                default:
+                    didMove = false;
+                    break;
             }
 
             return didMove;
-
         }
 
         private static readonly string[,] Rooms = {
@@ -111,9 +115,6 @@ namespace Zork
             {"Dense Woods", "North of House", "Clearing" }
         };
 
-        private static (int Row, int Column) Location = (1,1);
-
-
+        private static (int Row, int Column) Location;
     }
-
 }
