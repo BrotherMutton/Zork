@@ -1,12 +1,29 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Zork
 {
     class Program
     {
+        private static string CurrentRoom
+        {
+            get
+            {
+                return Rooms[Location.Row, Location.Column];
+            }
+            set
+            {
+                for (int row = 0; row < Rooms.GetLength(0); row++)
+                {
+                                      
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
+            
             Console.WriteLine("Welcome to Zork!");
 
             Commands command = Commands.UNKNOWN;
@@ -87,7 +104,6 @@ namespace Zork
             return didMove;
 
         }
-
 
         private static readonly string[,] Rooms = {
             {"Rocky Trail", "South of House", "Canyon View" },
