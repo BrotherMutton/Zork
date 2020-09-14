@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Numerics;
+using System.Linq;
 
 namespace Zork
 {
@@ -14,9 +12,8 @@ namespace Zork
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
             {
-
-                Console.WriteLine(Rooms[Location.Row,Location.Column]);
-                Console.Write("> ");
+                                
+                Console.Write($"{Rooms[Location.Row,Location.Column]}\n> ");
                 command = ToCommand(Console.ReadLine().Trim());
 
                 string outputString;
@@ -34,7 +31,8 @@ namespace Zork
                     case Commands.SOUTH:
                     case Commands.EAST:
                     case Commands.WEST:
-                        outputString = Move(command) ? $"You moved {command}" : $"The way is shut!";
+                        Directions direction = (Directions)command;
+                        outputString = Move(direction) ? $"You moved {command}" : $"The way is shut!";
                         break;
 
                     default:
@@ -60,26 +58,27 @@ namespace Zork
 
         }
 
-        private static bool Move(Commands command)
+        private static bool Move(Directions direction)
         {
+                        
             bool didMove = false;
 
-            if (command == Commands.EAST && Location.Column < Rooms.GetLength(1) - 1)
+            if (direction == Directions.EAST && Location.Column < Rooms.GetLength(1) - 1)
             {
                 Location.Column++;
                 didMove = true;
             }
-            else if (command == Commands.WEST && Location.Column > 0)
+            else if (direction == Directions.WEST && Location.Column > 0)
             {
                 Location.Column--;
                 didMove = true;
             }
-            else if (command == Commands.SOUTH && Location.Row < Rooms.GetLength(0) - 1)
+            else if (direction == Directions.SOUTH && Location.Row < Rooms.GetLength(0) - 1)
             {
                 Location.Row++;
                 didMove = true;
             }
-            else if (command == Commands.NORTH && Location.Row > 0)
+            else if (direction == Directions.NORTH && Location.Row > 0)
             {
                 Location.Row--;
                 didMove = true;
@@ -89,7 +88,6 @@ namespace Zork
 
         }
 
-        // this is bascially correct but im gonna wait for lecture to upload 2.2
 
         private static readonly string[,] Rooms = {
             {"Rocky Trail", "South of House", "Canyon View" },
@@ -98,5 +96,8 @@ namespace Zork
         };
 
         private static (int Row, int Column) Location = (1,1);
+
+
     }
+
 }
