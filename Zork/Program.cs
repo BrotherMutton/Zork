@@ -14,8 +14,8 @@ namespace Zork
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
             {
-                
-                Console.WriteLine(Rooms[CurrentRoomIndex]);
+
+                Console.WriteLine(Rooms[Location.Row,Location.Column]);
                 Console.Write("> ");
                 command = ToCommand(Console.ReadLine().Trim());
 
@@ -32,11 +32,11 @@ namespace Zork
 
                     case Commands.NORTH:
                     case Commands.SOUTH:
-                    case Commands.EAST:                       
+                    case Commands.EAST:
                     case Commands.WEST:
-                        outputString = Move(command) ? $"You moved {command}" : $"The way is shut!";  
+                        outputString = Move(command) ? $"You moved {command}" : $"The way is shut!";
                         break;
-                    
+
                     default:
                         outputString = "Unknown command.";
                         break;
@@ -64,30 +64,39 @@ namespace Zork
         {
             bool didMove = false;
 
-            if (command == Commands.EAST && CurrentRoomIndex < Rooms.Length - 1)
+            if (command == Commands.EAST && Location.Column < Rooms.GetLength(1) - 1)
             {
-                CurrentRoomIndex++;
+                Location.Column++;
                 didMove = true;
             }
-            else if(command == Commands.WEST && CurrentRoomIndex > 0)
+            else if (command == Commands.WEST && Location.Column > 0)
             {
-                CurrentRoomIndex--;
+                Location.Column--;
                 didMove = true;
-            }          
+            }
+            else if (command == Commands.SOUTH && Location.Row < Rooms.GetLength(0) - 1)
+            {
+                Location.Row++;
+                didMove = true;
+            }
+            else if (command == Commands.NORTH && Location.Row > 0)
+            {
+                Location.Row--;
+                didMove = true;
+            }
 
             return didMove;
 
         }
 
-        private static string[] Rooms = new string[]
-        {
-            "Forest",
-            "West of House",
-            "Behind House",
-            "Clearing",
-            "Canyon View"
+        // this is bascially correct but im gonna wait for lecture to upload 2.2
+
+        private static readonly string[,] Rooms = {
+            {"Rocky Trail", "South of House", "Canyon View" },
+            {"Forest", "West of House", "Behind House" },
+            {"Dense Woods", "North of House", "Clearing" }
         };
 
-        private static int CurrentRoomIndex = 1;
+        private static (int Row, int Column) Location = (1,1);
     }
 }
