@@ -85,11 +85,11 @@ namespace Zork
 
             switch (direction)
             {
-                case Directions.NORTH when Location.Row > 0:
+                case Directions.SOUTH when Location.Row > 0:
                     Location.Row--;
                     didMove = true;
                     break;
-                case Directions.SOUTH when Location.Row < Rooms.GetLength(0) - 1:
+                case Directions.NORTH when Location.Row < Rooms.GetLength(0) - 1:
                     Location.Row++;
                     didMove = true;
                     break;
