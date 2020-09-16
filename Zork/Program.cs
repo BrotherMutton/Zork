@@ -5,33 +5,33 @@ namespace Zork
 {
     class Program
     {
-        private static string CurrentRoom
+        private static Room CurrentRoom
         {
             get
             {
                 return Rooms[Location.Row, Location.Column];
             }
-            set
-            {
-                for (int row = 0; row < Rooms.GetLength(0); row++)
-                {
-                    for (int column = 0; column < Rooms.GetLength(1); column++)
-                    {
-                        if (Rooms[row, column] == value)
-                        {
-                            Location = (row, column);
-                            return;
-                        }
-                    }
-                }
+            //set
+            //{
+            //    for (int row = 0; row < Rooms.GetLength(0); row++)
+            //    {
+            //        for (int column = 0; column < Rooms.GetLength(1); column++)
+            //        {
+            //            if (Rooms[row, column] == value)
+            //            {
+            //                Location = (row, column);
+            //                return;
+            //            }
+            //        }
+            //    }
 
-                throw new Exception("Invalid room");
-            }
+            //    throw new Exception("Invalid room");
+            //}
         }
 
         static void Main(string[] args)
         {
-            CurrentRoom = "West of House";
+            InitalizeRoomDescriptions();
             Console.WriteLine("Welcome to Zork!");
 
             Commands command = Commands.UNKNOWN;
@@ -48,7 +48,7 @@ namespace Zork
                         break;
 
                     case Commands.LOOK:
-                        outputString = "This is an open field west of a white house, with a boarded front door.\nA rubber mat saying 'Welcome to Zork!' lies by the door.";
+                        outputString = CurrentRoom.Description;
                         break;
 
                     case Commands.NORTH:
@@ -83,23 +83,23 @@ namespace Zork
         {
             Assert.IsTrue(IsDirection(command), "Invalid direction.");
 
-            bool isValidMove = true;            
+            bool isValidMove = true;
             switch (command)
             {
                 case Commands.SOUTH when Location.Row > 0:
-                    Location.Row--;                    
+                    Location.Row--;
                     break;
 
                 case Commands.NORTH when Location.Row < Rooms.GetLength(0) - 1:
-                    Location.Row++;                    
+                    Location.Row++;
                     break;
 
                 case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
-                    Location.Column++;                    
+                    Location.Column++;
                     break;
 
                 case Commands.WEST when Location.Column > 0:
-                    Location.Column--;                    
+                    Location.Column--;
                     break;
 
                 default:
@@ -112,10 +112,26 @@ namespace Zork
 
         private static bool IsDirection(Commands command) => Directions.Contains(command);
 
-        private static readonly string[,] Rooms = {
-            {"Rocky Trail", "South of House", "Canyon View" },
-            {"Forest", "West of House", "Behind House" },
-            {"Dense Woods", "North of House", "Clearing" },
+        private static void InitalizeRoomDescriptions()
+        {
+
+            foreach (Room room in Rooms)
+            {
+                RoomsByName.Add(room.Name, room);
+            }
+
+            RoomsByName["Rocky Trail"].Description = "You are on a rock-strewn trail.";
+            RoomsByName["South of House"].Description = "You are facing the side of a white house. This is no door here, and the windows are barred.";
+            RoomsByName["Canyon View"].Description = "You are at the top of the Great Canyon on its' south wall.";
+
+
+        }
+
+        private static readonly Room[,] Rooms =
+        {
+            {new Room("Rocky Trail"),   new Room("South of House"),   new Room("Canyon View") },
+            {new Room("Forest"),        new Room("West of House"),    new Room("Behind House") },
+            {new Room("Dense Woods"),   new Room("North of House"),   new Room("Clearing") },
         };
 
         private static readonly List<Commands> Directions = new List<Commands>
@@ -126,6 +142,8 @@ namespace Zork
             Commands.WEST
         };
 
-        private static (int Row, int Column) Location;
+        private static (int Row, int Column) Location = (1, 1);
+
+        private static Dictionary<string, Room> RoomsByName = new Dictionary<string, Room>();
     }
 }
