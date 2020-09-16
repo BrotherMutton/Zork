@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zork
 {
@@ -54,8 +55,7 @@ namespace Zork
                     case Commands.SOUTH:
                     case Commands.EAST:
                     case Commands.WEST:
-                        Directions direction = (Directions)command;
-                        outputString = Move(direction) ? $"You moved {direction}" : $"The way is shut!";
+                        outputString = Move(command) ? $"You moved {command}" : $"The way is shut!";
                         break;
 
                     default:
@@ -79,40 +79,51 @@ namespace Zork
             }
         }
 
-        private static bool Move(Directions direction)
+        private static bool Move(Commands command)
         {
-            bool didMove;
+            Assert.IsTrue(IsDirection(command), "Invalid direction.");
 
-            switch (direction)
+            bool isValidMove = true;            
+            switch (command)
             {
-                case Directions.SOUTH when Location.Row > 0:
-                    Location.Row--;
-                    didMove = true;
+                case Commands.SOUTH when Location.Row > 0:
+                    Location.Row--;                    
                     break;
-                case Directions.NORTH when Location.Row < Rooms.GetLength(0) - 1:
-                    Location.Row++;
-                    didMove = true;
+
+                case Commands.NORTH when Location.Row < Rooms.GetLength(0) - 1:
+                    Location.Row++;                    
                     break;
-                case Directions.EAST when Location.Column < Rooms.GetLength(1) - 1:
-                    Location.Column++;
-                    didMove = true;
+
+                case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
+                    Location.Column++;                    
                     break;
-                case Directions.WEST when Location.Column > 0:
-                    Location.Column--;
-                    didMove = true;
+
+                case Commands.WEST when Location.Column > 0:
+                    Location.Column--;                    
                     break;
+
                 default:
-                    didMove = false;
+                    isValidMove = false;
                     break;
             }
 
-            return didMove;
+            return isValidMove;
         }
+
+        private static bool IsDirection(Commands command) => Directions.Contains(command);
 
         private static readonly string[,] Rooms = {
             {"Rocky Trail", "South of House", "Canyon View" },
             {"Forest", "West of House", "Behind House" },
-            {"Dense Woods", "North of House", "Clearing" }
+            {"Dense Woods", "North of House", "Clearing" },
+        };
+
+        private static readonly List<Commands> Directions = new List<Commands>
+        {
+            Commands.NORTH,
+            Commands.SOUTH,
+            Commands.EAST,
+            Commands.WEST
         };
 
         private static (int Row, int Column) Location;
