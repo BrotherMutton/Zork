@@ -15,13 +15,20 @@ namespace Zork
 
         static void Main(string[] args)
         {
-            InitalizeRoomDescriptions();
             Console.WriteLine("Welcome to Zork!");
+            InitalizeRoomDescriptions();
 
+            Room previousRoom = null;
             Commands command = Commands.UNKNOWN;
             while (command != Commands.QUIT)
             {
-                Console.Write($"{CurrentRoom}\n> ");
+                Console.Write($"{CurrentRoom}\n");
+                if (previousRoom != CurrentRoom)
+                {
+                    Console.WriteLine(CurrentRoom.Description);
+                    previousRoom = CurrentRoom;
+                }
+                Console.Write(">");
                 command = ToCommand(Console.ReadLine().Trim());
 
                 string outputString;
