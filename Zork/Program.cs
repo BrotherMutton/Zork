@@ -10,7 +10,7 @@ namespace Zork
             get
             {
                 return Rooms[Location.Row, Location.Column];
-            }            
+            }
         }
 
         static void Main(string[] args)
@@ -70,12 +70,12 @@ namespace Zork
             bool isValidMove = true;
             switch (command)
             {
-                case Commands.SOUTH when Location.Row > 0:
-                    Location.Row--;
-                    break;
-
                 case Commands.NORTH when Location.Row < Rooms.GetLength(0) - 1:
                     Location.Row++;
+                    break;
+
+                case Commands.SOUTH when Location.Row > 0:
+                    Location.Row--;
                     break;
 
                 case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
