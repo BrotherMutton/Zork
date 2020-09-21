@@ -124,6 +124,14 @@ namespace Zork
             RoomsByName["South of House"].Description = "You are facing the side of a white house. This is no door here, and the windows are barred.";
             RoomsByName["Canyon View"].Description = "You are at the top of the Great Canyon on its' south wall.";
 
+            RoomsByName["Forest"].Description = "This is a forest, with trees in all directions around you.";
+            RoomsByName["West of House"].Description = "This is an open field west of a white house, with a boarded front door.";
+            RoomsByName["Behind House"].Description = "You are behind the white house. In one corner of the house there is a small window which is slightly ajar.";
+
+            RoomsByName["Dense Woods"].Description = "This is dimly lit forest with trees all around. To the east, there appears to be sunlight.";
+            RoomsByName["North of House"].Description = "You are facing the north side of a white house. There is no door here, and all the windows are barred.";
+            RoomsByName["Clearing"].Description = "You are in a clearing, with a forest surrounding you on the west and south.";
+
 
         }
 
