@@ -10,23 +10,7 @@ namespace Zork
             get
             {
                 return Rooms[Location.Row, Location.Column];
-            }
-            //set
-            //{
-            //    for (int row = 0; row < Rooms.GetLength(0); row++)
-            //    {
-            //        for (int column = 0; column < Rooms.GetLength(1); column++)
-            //        {
-            //            if (Rooms[row, column] == value)
-            //            {
-            //                Location = (row, column);
-            //                return;
-            //            }
-            //        }
-            //    }
-
-            //    throw new Exception("Invalid room");
-            //}
+            }            
         }
 
         static void Main(string[] args)
@@ -114,7 +98,6 @@ namespace Zork
 
         private static void InitalizeRoomDescriptions()
         {
-
             foreach (Room room in Rooms)
             {
                 RoomsByName.Add(room.Name, room);
@@ -131,7 +114,6 @@ namespace Zork
             RoomsByName["Dense Woods"].Description = "This is dimly lit forest with trees all around. To the east, there appears to be sunlight.";
             RoomsByName["North of House"].Description = "You are facing the north side of a white house. There is no door here, and all the windows are barred.";
             RoomsByName["Clearing"].Description = "You are in a clearing, with a forest surrounding you on the west and south.";
-
 
         }
 
