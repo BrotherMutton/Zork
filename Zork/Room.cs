@@ -12,6 +12,6 @@
             Description = description;
         }
 
-        public override string ToString() => Name;        
+        public override string ToString() => Name;
     }
 }
