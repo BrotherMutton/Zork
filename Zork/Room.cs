@@ -4,8 +4,8 @@
     {
         public string Name { get; set; }
 
-        public string Description { get; set; }        
-        
+        public string Description { get; set; }
+
         public Room(string name = null, string description = null)
         {
             Name = name;
