@@ -16,6 +16,7 @@ namespace Zork
 
         static Program()
         {
+            RoomsByName = new Dictionary<string, Room>();
             foreach (Room room in Rooms)
             {
                 RoomsByName.Add(room.Name, room);
@@ -153,12 +154,14 @@ namespace Zork
 
         private static (int Row, int Column) Location = (1, 1);
 
+        private static readonly Dictionary<string, Room> RoomsByName;
+
         private enum Fields
         {
             Name = 0,
             Description = 1,
         }
 
-        private static readonly Dictionary<string, Room> RoomsByName = new Dictionary<string, Room>();
+        
     }
 }
