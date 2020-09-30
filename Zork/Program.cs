@@ -109,7 +109,7 @@ namespace Zork
         private static bool IsDirection(Commands command) => Directions.Contains(command);
 
         private static void InitalizeRooms(string roomsFileName)
-        {             
+        {
             Rooms = JsonConvert.DeserializeObject<Room[,]>(File.ReadAllText(roomsFileName));
             foreach (Room room in Rooms)
             {
@@ -117,7 +117,7 @@ namespace Zork
             }
         }
 
-        private static Room[,] Rooms; 
+        private static Room[,] Rooms;
 
         private static readonly List<Commands> Directions = new List<Commands>
         {
@@ -129,7 +129,7 @@ namespace Zork
 
         private static (int Row, int Column) Location = (1, 1);
 
-        private static readonly Dictionary<string, Room> RoomsByName = new Dictionary<string, Room>();       
+        private static readonly Dictionary<string, Room> RoomsByName = new Dictionary<string, Room>();
 
         private enum CommandLineArguments
         {
