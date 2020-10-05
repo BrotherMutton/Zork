@@ -7,129 +7,16 @@ namespace Zork
 {
     class Program
     {
-        private static Room CurrentRoom
-        {
-            get
-            {
-                return Rooms[Location.Row, Location.Column];
-            }
-        }
-
         static void Main(string[] args)
         {
-            const string defaultRoomsFileName = "Rooms.json";
-            string roomsFilename = args.Length > 0 ? args[(int)CommandLineArguments.RoomsFilename] : defaultRoomsFileName;
-            InitalizeRooms(roomsFilename);
+            const string defaultGameFileName = "Zork.json";
+            string gameFileName = args.Length > 0 ? args[(int)CommandLineArguments.RoomsFilename] : defaultGameFileName;
 
             Console.WriteLine("Welcome to Zork!");
 
-            Room previousRoom = null;
-            Commands command = Commands.UNKNOWN;
-            while (command != Commands.QUIT)
-            {
-                Console.Write($"{CurrentRoom}\n");
-                if (previousRoom != CurrentRoom)
-                {
-                    Console.WriteLine(CurrentRoom.Description);
-                    previousRoom = CurrentRoom;
-                }
-                Console.Write(">");
-                command = ToCommand(Console.ReadLine().Trim());
-
-                string outputString;
-                switch (command)
-                {
-                    case Commands.QUIT:
-                        outputString = "Thank you for playing!";
-                        break;
-
-                    case Commands.LOOK:
-                        outputString = CurrentRoom.Description;
-                        break;
-
-                    case Commands.NORTH:
-                    case Commands.SOUTH:
-                    case Commands.EAST:
-                    case Commands.WEST:
-                        outputString = Move(command) ? $"You moved {command}" : $"The way is shut!";
-                        break;
-
-                    default:
-                        outputString = "Unknown command.";
-                        break;
-                }
-
-                Console.WriteLine(outputString);
-            }
+            Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFileName));
+            game.Run();
         }
-
-        private static Commands ToCommand(string commandString)
-        {
-            if (Enum.TryParse<Commands>(commandString, ignoreCase: true, out Commands result))
-            {
-                return result;
-            }
-            else
-            {
-                return Commands.UNKNOWN;
-            }
-        }
-
-        private static bool Move(Commands command)
-        {
-            Assert.IsTrue(IsDirection(command), "Invalid direction.");
-
-            bool isValidMove = true;
-            switch (command)
-            {
-                case Commands.NORTH when Location.Row < Rooms.GetLength(0) - 1:
-                    Location.Row++;
-                    break;
-
-                case Commands.SOUTH when Location.Row > 0:
-                    Location.Row--;
-                    break;
-
-                case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
-                    Location.Column++;
-                    break;
-
-                case Commands.WEST when Location.Column > 0:
-                    Location.Column--;
-                    break;
-
-                default:
-                    isValidMove = false;
-                    break;
-            }
-
-            return isValidMove;
-        }
-
-        private static bool IsDirection(Commands command) => Directions.Contains(command);
-
-        private static void InitalizeRooms(string roomsFileName)
-        {
-            Rooms = JsonConvert.DeserializeObject<Room[,]>(File.ReadAllText(roomsFileName));
-            foreach (Room room in Rooms)
-            {
-                RoomsByName.Add(room.Name, room);
-            }
-        }
-
-        private static Room[,] Rooms;
-
-        private static readonly List<Commands> Directions = new List<Commands>
-        {
-            Commands.NORTH,
-            Commands.SOUTH,
-            Commands.EAST,
-            Commands.WEST
-        };
-
-        private static (int Row, int Column) Location = (1, 1);
-
-        private static readonly Dictionary<string, Room> RoomsByName = new Dictionary<string, Room>();
 
         private enum CommandLineArguments
         {
