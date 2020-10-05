@@ -1,6 +1,6 @@
 ﻿namespace Zork
 {
-    class Room
+    public class Room
     {
         public string Name { get; set; }
 
@@ -13,5 +13,7 @@
         }
 
         public override string ToString() => Name;
+
+        public override int GetHashCode() => Name.GetHashCode();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Zork
 {
-    class Player
+    public class Player
     {
         public Room CurrentRoom { get; set; }
 
