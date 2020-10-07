@@ -33,7 +33,7 @@ namespace Zork
                     previousroom = Player.Location;
                 }
 
-                Console.Write("\n>");
+                Console.Write(">");
                 Commands command = ToCommand(Console.ReadLine().Trim());
               
                 switch (command)
