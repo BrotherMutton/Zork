@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Zork
 {
@@ -32,12 +31,11 @@ namespace Zork
 
         public bool Move(Directions direction)
         {
-
             bool isValidMove = Location.Neighbors.TryGetValue(direction, out Room destination);
             if (isValidMove)
             {
                 Location = destination;
-            }            
+            }
 
             return isValidMove;
         }

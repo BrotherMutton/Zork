@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace Zork
 {
@@ -10,17 +7,17 @@ namespace Zork
         static void Main(string[] args)
         {
             const string defaultGameFileName = "Zork.json";
-            string gameFileName = args.Length > 0 ? args[(int)CommandLineArguments.RoomsFilename] : defaultGameFileName;
+            string gameFileName = (args.Length > 0 ? args[(int)CommandLineArguments.GameFileName] : defaultGameFileName);
 
+            Game game = Game.Load(gameFileName);
             Console.WriteLine("Welcome to Zork!");
-
-            Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFileName));
             game.Run();
+            Console.WriteLine("Thank you for playing!");         
         }
 
         private enum CommandLineArguments
         {
-            RoomsFilename = 0,
+            GameFileName = 0,
         }
     }
 }

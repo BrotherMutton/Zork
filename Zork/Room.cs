@@ -41,11 +41,11 @@ namespace Zork
 
         public override string ToString() => Name;
 
-        public override int GetHashCode() => Name.GetHashCode();
+        public override int GetHashCode() => Name.GetHashCode(StringComparison.InvariantCultureIgnoreCase);
 
         public void UpdateNeighbors(World world) => Neighbors = (from entry in NeighborNames
-                                                                  let room = world.RoomsByName.GetValueOrDefault(entry.Value)
-                                                                  where room != null
-                                                                  select (Direction: entry.Key, Room: room)).ToDictionary(pair => pair.Direction, pair => pair.room);
+                                                                 let room = world.RoomsByName.GetValueOrDefault(entry.Value)
+                                                                 where room != null
+                                                                 select (Direction: entry.Key, Room: room)).ToDictionary(pair => pair.Direction, pair => pair.Room);
     }
 }
