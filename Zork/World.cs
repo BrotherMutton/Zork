@@ -7,12 +7,10 @@ namespace Zork
 {
     public class World
     {
-        public HashSet<Room> Rooms { get; set; }
+        public HashSet<Room> Rooms { get; set; }    
 
         [JsonIgnore]
         public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
-
-        public Player SpawnPlayer() => new Player(this, StartingLocation);
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
@@ -24,9 +22,6 @@ namespace Zork
                 room.UpdateNeighbors(this);
             }
         }
-
-        [JsonProperty]
-        private string StartingLocation { get; set; }
 
         private Dictionary<string, Room> mRoomsByName;
     }
