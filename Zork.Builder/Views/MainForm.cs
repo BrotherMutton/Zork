@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Forms;
-using Newtonsoft.Json.Bson;
+using Zork.Builder.ViewModels;
 
 namespace Zork.Builder
 {
@@ -15,17 +15,18 @@ namespace Zork.Builder
         public MainForm()
         {
             InitializeComponent();
-            UpdateTitle();
             CreateGame();
+
+            _gameViewModel = new GameViewModel();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GameFileName = null;
             CreateGame();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GameFileName))
             {
@@ -38,17 +39,16 @@ namespace Zork.Builder
 
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 GameFileName = saveFileDialog.FileName;
-                UpdateTitle();
                 SaveGame();
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -60,7 +60,7 @@ namespace Zork.Builder
         }
 
         private void SaveGame()
-        {           
+        {
             JsonSerializer jsonSerializer = new JsonSerializer() { Formatting = Formatting.Indented };
 
             using (StreamWriter streamWriter = new StreamWriter(GameFileName))
@@ -70,11 +70,15 @@ namespace Zork.Builder
             }
         }
 
-        private void UpdateTitle()
+        private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string gameFileName = string.IsNullOrWhiteSpace(GameFileName) ? "Untitled" : Path.GetFileNameWithoutExtension(GameFileName);
-            Text = $"Zork Builder - {gameFileName}";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                _gameViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
+                _gameViewModel.FullPath = openFileDialog.FileName;
+            }
         }
 
+        private GameViewModel _gameViewModel;
     }
 }
