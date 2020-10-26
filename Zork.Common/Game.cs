@@ -22,6 +22,7 @@ namespace Zork
         [JsonIgnore]
         private bool IsRunning { get; set; }
 
+        [JsonIgnore]
         public Dictionary<string, Command> Commands { get; private set; }
 
         public Game(World world, Player player)

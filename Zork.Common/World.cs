@@ -7,10 +7,15 @@ namespace Zork
 {
     public class World
     {
-        public HashSet<Room> Rooms { get; set; }    
+        public HashSet<Room> Rooms { get; set; } = new HashSet<Room>();
 
         [JsonIgnore]
         public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
+
+        public World()
+        {
+            Rooms = new HashSet<Room>();
+        }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)

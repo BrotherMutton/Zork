@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Zork
         public string Name { get; set; }
 
         public string[] Verbs { get; set; }
-
+        
         public Action<Game> Action { get; set; }
 
         public Command(string name, IEnumerable<string> verbs, Action<Game> action)

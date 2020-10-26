@@ -12,6 +12,7 @@ namespace Zork
 
             Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFileName));
             game.Run();
+
         }
 
         private enum CommandLineArguments
