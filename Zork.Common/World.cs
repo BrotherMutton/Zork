@@ -9,14 +9,14 @@ namespace Zork
     public class World : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public HashSet<Room> Rooms { get; set; } = new HashSet<Room>();
+        public List<Room> Rooms { get; set; } = new List<Room>();
 
         [JsonIgnore]
         public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
 
         public World()
         {
-            Rooms = new HashSet<Room>();
+            Rooms = new List<Room>();
         }
 
         [OnDeserialized]

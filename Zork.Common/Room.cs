@@ -23,6 +23,12 @@ namespace Zork
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
 
+        public Room (string name = null)
+        {
+
+        }
+
+
         public static bool operator ==(Room lhs, Room rhs)
         {
             if (ReferenceEquals(lhs, rhs))

@@ -15,9 +15,11 @@ namespace Zork.Builder
         public MainForm()
         {
             InitializeComponent();
-            CreateGame();
-
-            _gameViewModel = new GameViewModel();
+            // Just for now 
+            _ViewModel = new GameViewModel(new Game(new World(), null));
+            gameViewModelBindingSource.DataSource = _ViewModel;
+            worldView.ViewModel = _ViewModel;
+            settingsView.ViewModel = _ViewModel;
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -74,11 +76,11 @@ namespace Zork.Builder
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _gameViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
-                _gameViewModel.FullPath = openFileDialog.FileName;
+                _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
+                _ViewModel.FullPath = openFileDialog.FileName;
             }
         }
 
-        private GameViewModel _gameViewModel;
+        private GameViewModel _ViewModel;
     }
 }
