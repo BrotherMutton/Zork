@@ -45,15 +45,31 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.worldTabPage = new System.Windows.Forms.TabPage();
-            this.worldView = new Zork.Builder.WorldView();
-            this.settingsTabPage = new System.Windows.Forms.TabPage();
-            this.settingsView = new Zork.Builder.UserControls.SettingsView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.descriptionTextBox = new System.Windows.Forms.TextBox();
+            this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.descriptionLabel = new System.Windows.Forms.Label();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.removeRoomButton = new System.Windows.Forms.Button();
+            this.addRoomButton = new System.Windows.Forms.Button();
+            this.roomsListBox = new System.Windows.Forms.ListBox();
+            this.labelRooms = new System.Windows.Forms.Label();
+            this.settingsTabPage = new System.Windows.Forms.TabPage();
+            this.gameFilenameTextBox = new System.Windows.Forms.TextBox();
+            this.gameFilenameLabel = new System.Windows.Forms.Label();
+            this.exitMessageTextBox = new System.Windows.Forms.TextBox();
+            this.exitMessageLabel = new System.Windows.Forms.Label();
+            this.welcomeMessageTextBox = new System.Windows.Forms.TextBox();
+            this.welcomeMessageLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.worldTabPage.SuspendLayout();
-            this.settingsTabPage.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).BeginInit();
+            this.settingsTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -173,7 +189,11 @@
             // 
             // worldTabPage
             // 
-            this.worldTabPage.Controls.Add(this.worldView);
+            this.worldTabPage.Controls.Add(this.groupBox1);
+            this.worldTabPage.Controls.Add(this.removeRoomButton);
+            this.worldTabPage.Controls.Add(this.addRoomButton);
+            this.worldTabPage.Controls.Add(this.roomsListBox);
+            this.worldTabPage.Controls.Add(this.labelRooms);
             this.worldTabPage.Location = new System.Drawing.Point(4, 22);
             this.worldTabPage.Name = "worldTabPage";
             this.worldTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -182,18 +202,114 @@
             this.worldTabPage.Text = "World";
             this.worldTabPage.UseVisualStyleBackColor = true;
             // 
-            // worldView
+            // groupBox1
             // 
-            this.worldView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.worldView.Location = new System.Drawing.Point(3, 3);
-            this.worldView.Name = "worldView";
-            this.worldView.Size = new System.Drawing.Size(786, 394);
-            this.worldView.TabIndex = 0;
-            this.worldView.ViewModel = null;
+            this.groupBox1.Controls.Add(this.descriptionTextBox);
+            this.groupBox1.Controls.Add(this.descriptionLabel);
+            this.groupBox1.Controls.Add(this.nameTextBox);
+            this.groupBox1.Controls.Add(this.nameLabel);
+            this.groupBox1.Location = new System.Drawing.Point(174, 20);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(259, 329);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Selected Room";
+            // 
+            // descriptionTextBox
+            // 
+            this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Description", true));
+            this.descriptionTextBox.Location = new System.Drawing.Point(6, 92);
+            this.descriptionTextBox.Multiline = true;
+            this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.Size = new System.Drawing.Size(247, 89);
+            this.descriptionTextBox.TabIndex = 11;
+            // 
+            // roomsBindingSource
+            // 
+            this.roomsBindingSource.DataMember = "Rooms";
+            this.roomsBindingSource.DataSource = this.gameViewModelBindingSource;
+            // 
+            // gameViewModelBindingSource
+            // 
+            this.gameViewModelBindingSource.DataSource = typeof(Zork.Builder.ViewModels.GameViewModel);
+            // 
+            // descriptionLabel
+            // 
+            this.descriptionLabel.AutoSize = true;
+            this.descriptionLabel.Location = new System.Drawing.Point(6, 76);
+            this.descriptionLabel.Name = "descriptionLabel";
+            this.descriptionLabel.Size = new System.Drawing.Size(63, 13);
+            this.descriptionLabel.TabIndex = 10;
+            this.descriptionLabel.Text = "&Description:";
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(6, 44);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(247, 20);
+            this.nameTextBox.TabIndex = 9;
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(6, 28);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(38, 13);
+            this.nameLabel.TabIndex = 8;
+            this.nameLabel.Text = "&Name:";
+            // 
+            // removeRoomButton
+            // 
+            this.removeRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.removeRoomButton.Location = new System.Drawing.Point(93, 355);
+            this.removeRoomButton.Name = "removeRoomButton";
+            this.removeRoomButton.Size = new System.Drawing.Size(75, 23);
+            this.removeRoomButton.TabIndex = 7;
+            this.removeRoomButton.Text = "&Remove";
+            this.removeRoomButton.UseVisualStyleBackColor = true;
+            // 
+            // addRoomButton
+            // 
+            this.addRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.addRoomButton.Location = new System.Drawing.Point(11, 355);
+            this.addRoomButton.Name = "addRoomButton";
+            this.addRoomButton.Size = new System.Drawing.Size(75, 23);
+            this.addRoomButton.TabIndex = 6;
+            this.addRoomButton.Text = "&Add";
+            this.addRoomButton.UseVisualStyleBackColor = true;
+            this.addRoomButton.Click += new System.EventHandler(this.AddRoomButton_Click);
+            // 
+            // roomsListBox
+            // 
+            this.roomsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.roomsListBox.DataSource = this.roomsBindingSource;
+            this.roomsListBox.DisplayMember = "Name";
+            this.roomsListBox.FormattingEnabled = true;
+            this.roomsListBox.Location = new System.Drawing.Point(11, 20);
+            this.roomsListBox.Name = "roomsListBox";
+            this.roomsListBox.Size = new System.Drawing.Size(157, 329);
+            this.roomsListBox.TabIndex = 5;
+            this.roomsListBox.ValueMember = "Description";
+            // 
+            // labelRooms
+            // 
+            this.labelRooms.AutoSize = true;
+            this.labelRooms.Location = new System.Drawing.Point(8, 3);
+            this.labelRooms.Name = "labelRooms";
+            this.labelRooms.Size = new System.Drawing.Size(43, 13);
+            this.labelRooms.TabIndex = 4;
+            this.labelRooms.Text = "Rooms:";
             // 
             // settingsTabPage
             // 
-            this.settingsTabPage.Controls.Add(this.settingsView);
+            this.settingsTabPage.Controls.Add(this.gameFilenameTextBox);
+            this.settingsTabPage.Controls.Add(this.gameFilenameLabel);
+            this.settingsTabPage.Controls.Add(this.exitMessageTextBox);
+            this.settingsTabPage.Controls.Add(this.exitMessageLabel);
+            this.settingsTabPage.Controls.Add(this.welcomeMessageTextBox);
+            this.settingsTabPage.Controls.Add(this.welcomeMessageLabel);
             this.settingsTabPage.Location = new System.Drawing.Point(4, 22);
             this.settingsTabPage.Name = "settingsTabPage";
             this.settingsTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -202,18 +318,73 @@
             this.settingsTabPage.Text = "Settings";
             this.settingsTabPage.UseVisualStyleBackColor = true;
             // 
-            // settingsView
+            // gameFilenameTextBox
             // 
-            this.settingsView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsView.Location = new System.Drawing.Point(3, 3);
-            this.settingsView.Name = "settingsView";
-            this.settingsView.Size = new System.Drawing.Size(786, 394);
-            this.settingsView.TabIndex = 0;
-            this.settingsView.ViewModel = null;
+            this.gameFilenameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "FullPath", true));
+            this.gameFilenameTextBox.Location = new System.Drawing.Point(12, 29);
+            this.gameFilenameTextBox.Name = "gameFilenameTextBox";
+            this.gameFilenameTextBox.ReadOnly = true;
+            this.gameFilenameTextBox.Size = new System.Drawing.Size(512, 20);
+            this.gameFilenameTextBox.TabIndex = 9;
             // 
-            // gameViewModelBindingSource
+            // gameFilenameLabel
             // 
-            this.gameViewModelBindingSource.DataSource = typeof(Zork.Builder.ViewModels.GameViewModel);
+            this.gameFilenameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gameFilenameLabel.AutoSize = true;
+            this.gameFilenameLabel.Location = new System.Drawing.Point(9, 13);
+            this.gameFilenameLabel.Name = "gameFilenameLabel";
+            this.gameFilenameLabel.Size = new System.Drawing.Size(83, 13);
+            this.gameFilenameLabel.TabIndex = 8;
+            this.gameFilenameLabel.Text = "Game Filename:";
+            // 
+            // exitMessageTextBox
+            // 
+            this.exitMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitMessageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "ExitMessage", true));
+            this.exitMessageTextBox.Location = new System.Drawing.Point(9, 196);
+            this.exitMessageTextBox.Multiline = true;
+            this.exitMessageTextBox.Name = "exitMessageTextBox";
+            this.exitMessageTextBox.Size = new System.Drawing.Size(515, 90);
+            this.exitMessageTextBox.TabIndex = 7;
+            // 
+            // exitMessageLabel
+            // 
+            this.exitMessageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitMessageLabel.AutoSize = true;
+            this.exitMessageLabel.Location = new System.Drawing.Point(9, 180);
+            this.exitMessageLabel.Name = "exitMessageLabel";
+            this.exitMessageLabel.Size = new System.Drawing.Size(73, 13);
+            this.exitMessageLabel.TabIndex = 6;
+            this.exitMessageLabel.Text = "Exit Message:";
+            // 
+            // welcomeMessageTextBox
+            // 
+            this.welcomeMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.welcomeMessageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "WelcomeMessage", true));
+            this.welcomeMessageTextBox.Location = new System.Drawing.Point(11, 73);
+            this.welcomeMessageTextBox.Multiline = true;
+            this.welcomeMessageTextBox.Name = "welcomeMessageTextBox";
+            this.welcomeMessageTextBox.Size = new System.Drawing.Size(515, 104);
+            this.welcomeMessageTextBox.TabIndex = 5;
+            // 
+            // welcomeMessageLabel
+            // 
+            this.welcomeMessageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.welcomeMessageLabel.AutoSize = true;
+            this.welcomeMessageLabel.Location = new System.Drawing.Point(8, 57);
+            this.welcomeMessageLabel.Name = "welcomeMessageLabel";
+            this.welcomeMessageLabel.Size = new System.Drawing.Size(101, 13);
+            this.welcomeMessageLabel.TabIndex = 4;
+            this.welcomeMessageLabel.Text = "Welcome Message:";
             // 
             // MainForm
             // 
@@ -231,8 +402,13 @@
             this.menuStrip.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.worldTabPage.ResumeLayout(false);
-            this.settingsTabPage.ResumeLayout(false);
+            this.worldTabPage.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).EndInit();
+            this.settingsTabPage.ResumeLayout(false);
+            this.settingsTabPage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,8 +434,22 @@
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.BindingSource gameViewModelBindingSource;
-        private WorldView worldView;
-        private UserControls.SettingsView settingsView;
+        private System.Windows.Forms.Button removeRoomButton;
+        private System.Windows.Forms.Button addRoomButton;
+        private System.Windows.Forms.ListBox roomsListBox;
+        private System.Windows.Forms.Label labelRooms;
+        private System.Windows.Forms.BindingSource roomsBindingSource;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.TextBox descriptionTextBox;
+        private System.Windows.Forms.Label descriptionLabel;
+        private System.Windows.Forms.TextBox exitMessageTextBox;
+        private System.Windows.Forms.Label exitMessageLabel;
+        private System.Windows.Forms.TextBox welcomeMessageTextBox;
+        private System.Windows.Forms.Label welcomeMessageLabel;
+        private System.Windows.Forms.TextBox gameFilenameTextBox;
+        private System.Windows.Forms.Label gameFilenameLabel;
     }
 }
 

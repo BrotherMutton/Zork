@@ -13,10 +13,10 @@ namespace Zork
         public Player(World world, string startingLocation)
         {
             Assert.IsNotNull(world);
-            Assert.IsTrue(world.RoomsByName.ContainsKey(startingLocation));
+            Assert.IsTrue(world.GetRoomsByName().ContainsKey(startingLocation));
 
             World = world;
-            Location = world.RoomsByName[startingLocation];
+            Location = world.GetRoomsByName()[startingLocation];
         }
 
         public bool Move(Directions direction)

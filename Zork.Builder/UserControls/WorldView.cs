@@ -13,18 +13,5 @@ namespace Zork.Builder
         {
             InitializeComponent();
         }
-
-        private void addRoomButton_Click(object sender, EventArgs e)
-        {
-            using (var addRoomForm = new AddRoomForm())
-            {
-                if (addRoomForm.ShowDialog() == DialogResult.OK)
-                {
-                    // Add the newly created room to the game world
-                    Room room = new Room(addRoomForm.RoomName);
-                    ViewModel.Rooms.Add(room);
-                }
-            }
-        }
     }
 }

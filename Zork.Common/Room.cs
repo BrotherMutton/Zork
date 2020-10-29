@@ -20,15 +20,11 @@ namespace Zork
         [JsonProperty(PropertyName = "Neighbors", Order = 3)]
         public Dictionary<Directions, string> NeighborNames;
 
+        public Room(string name) => Name = name;
+
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
-
-        public Room (string name = null)
-        {
-
-        }
-
-
+    
         public static bool operator ==(Room lhs, Room rhs)
         {
             if (ReferenceEquals(lhs, rhs))
@@ -59,7 +55,7 @@ namespace Zork
 
             foreach (var entry in NeighborNames)
             {
-                neighbors.Add(entry.Key, world.RoomsByName[entry.Value]);
+                neighbors.Add(entry.Key, world.GetRoomsByName()[entry.Value]);
 
             }
             Neighbors = neighbors;

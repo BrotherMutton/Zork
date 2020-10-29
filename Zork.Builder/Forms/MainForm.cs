@@ -3,40 +3,37 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Forms;
 using Zork.Builder.ViewModels;
+using Zork.Builder.Forms;
 
 namespace Zork.Builder
 {
     public partial class MainForm : Form
     {
-        private Game Game { get; set; }
-
-        private string GameFileName { get; set; }
-
         public MainForm()
         {
             InitializeComponent();
             // Just for now 
             _ViewModel = new GameViewModel(new Game(new World(), null));
             gameViewModelBindingSource.DataSource = _ViewModel;
-            worldView.ViewModel = _ViewModel;
-            settingsView.ViewModel = _ViewModel;
+            //worldView.ViewModel = _ViewModel;
+            //settingsView.ViewModel = _ViewModel;
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GameFileName = null;
+            //GameFileName = null;
             CreateGame();
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(GameFileName))
+            if (string.IsNullOrWhiteSpace(_ViewModel.FullPath))
             {
                 saveAsToolStripMenuItem.PerformClick();
             }
             else
             {
-                SaveGame();
+                _ViewModel.Save();
             }
 
         }
@@ -45,8 +42,8 @@ namespace Zork.Builder
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                GameFileName = saveFileDialog.FileName;
-                SaveGame();
+                _ViewModel.FullPath = saveFileDialog.FileName;
+                _ViewModel.Save();
             }
         }
 
@@ -57,19 +54,8 @@ namespace Zork.Builder
 
         private void CreateGame()
         {
-            GameFileName = null;
-            Game = new Game(new World(), null);
-        }
-
-        private void SaveGame()
-        {
-            JsonSerializer jsonSerializer = new JsonSerializer() { Formatting = Formatting.Indented };
-
-            using (StreamWriter streamWriter = new StreamWriter(GameFileName))
-            using (JsonWriter jsonWriter = new JsonTextWriter(streamWriter))
-            {
-                jsonSerializer.Serialize(jsonWriter, Game);
-            }
+            //GameFileName = null;
+            //Game = new Game(new World(), null);
         }
 
         private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,6 +64,16 @@ namespace Zork.Builder
             {
                 _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 _ViewModel.FullPath = openFileDialog.FileName;
+            }
+        }
+        private void AddRoomButton_Click(object sender, EventArgs e)
+        {
+            using (var addRoomForm = new AddRoomForm())
+            {
+                if (addRoomForm.ShowDialog() == DialogResult.OK)
+                {
+                    _ViewModel.Rooms.Add(new Room(addRoomForm.RoomName));
+                }
             }
         }
 

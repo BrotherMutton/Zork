@@ -11,8 +11,7 @@ namespace Zork
         public event PropertyChangedEventHandler PropertyChanged;
         public List<Room> Rooms { get; set; } = new List<Room>();
 
-        [JsonIgnore]
-        public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
+        public IReadOnlyDictionary<string, Room> GetRoomsByName() => mRoomsByName;
 
         public World()
         {

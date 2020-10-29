@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Zork.Builder.ViewModels
 {
@@ -13,13 +11,12 @@ namespace Zork.Builder.ViewModels
 
         public Game Game
         {
-            get => _game;
             set
             {
                 if (_game != value)
                 {
                     _game = value;
-                    if(_game != null)
+                    if (_game != null)
                     {
                         Rooms = new BindingList<Room>(_game.World.Rooms);
                     }
@@ -27,18 +24,40 @@ namespace Zork.Builder.ViewModels
                     {
                         Rooms = new BindingList<Room>(Array.Empty<Room>());
                     }
-
                 }
             }
         }
 
         public BindingList<Room> Rooms { get; set; }
 
+        public string WelcomeMessage
+        {
+            get => _game.WelcomeMessage;
+            set => _game.WelcomeMessage = value;
+        }
+
+        public string ExitMessage
+        {
+            get => _game.ExitMessage;
+            set => _game.ExitMessage = value;
+        }
+
         public string FullPath { get; set; }
 
         public GameViewModel(Game game = null)
         {
             Game = game;
+        }
+
+        public void Save()
+        {
+            JsonSerializer jsonSerializer = new JsonSerializer() { Formatting = Formatting.Indented };
+
+            using (StreamWriter streamWriter = new StreamWriter(FullPath))
+            using (JsonWriter jsonWriter = new JsonTextWriter(streamWriter))
+            {
+                jsonSerializer.Serialize(jsonWriter, _game);
+            }
         }
 
         private Game _game;

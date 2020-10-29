@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.labelRooms = new System.Windows.Forms.Label();
             this.roomsListBox = new System.Windows.Forms.ListBox();
             this.addRoomButton = new System.Windows.Forms.Button();
             this.removeRoomButton = new System.Windows.Forms.Button();
-            this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // labelRooms
@@ -52,13 +47,12 @@
             // 
             this.roomsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.roomsListBox.DataSource = this.roomsBindingSource;
-            this.roomsListBox.DisplayMember = "Name";
             this.roomsListBox.FormattingEnabled = true;
             this.roomsListBox.Location = new System.Drawing.Point(17, 28);
             this.roomsListBox.Name = "roomsListBox";
             this.roomsListBox.Size = new System.Drawing.Size(157, 329);
             this.roomsListBox.TabIndex = 1;
+            this.roomsListBox.ValueMember = "Description";
             // 
             // addRoomButton
             // 
@@ -69,7 +63,6 @@
             this.addRoomButton.TabIndex = 2;
             this.addRoomButton.Text = "&Add";
             this.addRoomButton.UseVisualStyleBackColor = true;
-            this.addRoomButton.Click += new System.EventHandler(this.addRoomButton_Click);
             // 
             // removeRoomButton
             // 
@@ -81,15 +74,6 @@
             this.removeRoomButton.Text = "&Remove";
             this.removeRoomButton.UseVisualStyleBackColor = true;
             // 
-            // gameViewModelBindingSource
-            // 
-            this.gameViewModelBindingSource.DataSource = typeof(Zork.Builder.ViewModels.GameViewModel);
-            // 
-            // roomsBindingSource
-            // 
-            this.roomsBindingSource.DataMember = "Rooms";
-            this.roomsBindingSource.DataSource = this.gameViewModelBindingSource;
-            // 
             // WorldView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,8 +84,6 @@
             this.Controls.Add(this.labelRooms);
             this.Name = "WorldView";
             this.Size = new System.Drawing.Size(722, 404);
-            ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,7 +95,5 @@
         private System.Windows.Forms.ListBox roomsListBox;
         private System.Windows.Forms.Button addRoomButton;
         private System.Windows.Forms.Button removeRoomButton;
-        private System.Windows.Forms.BindingSource gameViewModelBindingSource;
-        private System.Windows.Forms.BindingSource roomsBindingSource;
     }
 }
