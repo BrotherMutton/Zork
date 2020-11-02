@@ -12,17 +12,13 @@ namespace Zork.Builder
         public MainForm()
         {
             InitializeComponent();
-            // Just for now 
             _ViewModel = new GameViewModel(new Game(new World(), null));
             gameViewModelBindingSource.DataSource = _ViewModel;
-            //worldView.ViewModel = _ViewModel;
-            //settingsView.ViewModel = _ViewModel;
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //GameFileName = null;
-            //CreateGame();
+            CreateGame();
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,11 +50,11 @@ namespace Zork.Builder
 
         private void CreateGame()
         {
-            //GameFileName = null;
-            //Game = new Game(new World(), null);
+            _ViewModel.FullPath = null;
+            _ViewModel.Game = new Game(new World(), null);
         }
 
-        private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -78,5 +74,10 @@ namespace Zork.Builder
         }
 
         private GameViewModel _ViewModel;
+
+        private void CloseGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateGame();
+        }
     }
 }
