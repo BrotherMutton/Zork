@@ -210,7 +210,7 @@
             this.groupBox1.Controls.Add(this.nameLabel);
             this.groupBox1.Location = new System.Drawing.Point(174, 20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 329);
+            this.groupBox1.Size = new System.Drawing.Size(610, 358);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected Room";
@@ -218,10 +218,10 @@
             // descriptionTextBox
             // 
             this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Description", true));
-            this.descriptionTextBox.Location = new System.Drawing.Point(6, 92);
+            this.descriptionTextBox.Location = new System.Drawing.Point(6, 80);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(247, 89);
+            this.descriptionTextBox.Size = new System.Drawing.Size(445, 89);
             this.descriptionTextBox.TabIndex = 11;
             // 
             // roomsBindingSource
@@ -236,7 +236,7 @@
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(6, 76);
+            this.descriptionLabel.Location = new System.Drawing.Point(6, 64);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(63, 13);
             this.descriptionLabel.TabIndex = 10;
@@ -245,15 +245,15 @@
             // nameTextBox
             // 
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Name", true));
-            this.nameTextBox.Location = new System.Drawing.Point(6, 44);
+            this.nameTextBox.Location = new System.Drawing.Point(6, 36);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(247, 20);
+            this.nameTextBox.Size = new System.Drawing.Size(323, 20);
             this.nameTextBox.TabIndex = 9;
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(6, 28);
+            this.nameLabel.Location = new System.Drawing.Point(6, 20);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(38, 13);
             this.nameLabel.TabIndex = 8;

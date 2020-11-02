@@ -22,7 +22,7 @@ namespace Zork.Builder
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //GameFileName = null;
-            CreateGame();
+            //CreateGame();
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
