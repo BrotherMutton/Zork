@@ -57,6 +57,8 @@
             this.roomsListBox = new System.Windows.Forms.ListBox();
             this.labelRooms = new System.Windows.Forms.Label();
             this.settingsTabPage = new System.Windows.Forms.TabPage();
+            this.StartingLocationLabel = new System.Windows.Forms.Label();
+            this.startingLocationBox = new System.Windows.Forms.ComboBox();
             this.gameFilenameTextBox = new System.Windows.Forms.TextBox();
             this.gameFilenameLabel = new System.Windows.Forms.Label();
             this.exitMessageTextBox = new System.Windows.Forms.TextBox();
@@ -274,7 +276,7 @@
             // removeRoomButton
             // 
             this.removeRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.removeRoomButton.Location = new System.Drawing.Point(124, 439);
+            this.removeRoomButton.Location = new System.Drawing.Point(124, 441);
             this.removeRoomButton.Margin = new System.Windows.Forms.Padding(4);
             this.removeRoomButton.Name = "removeRoomButton";
             this.removeRoomButton.Size = new System.Drawing.Size(100, 28);
@@ -285,7 +287,7 @@
             // addRoomButton
             // 
             this.addRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.addRoomButton.Location = new System.Drawing.Point(15, 439);
+            this.addRoomButton.Location = new System.Drawing.Point(15, 441);
             this.addRoomButton.Margin = new System.Windows.Forms.Padding(4);
             this.addRoomButton.Name = "addRoomButton";
             this.addRoomButton.Size = new System.Drawing.Size(100, 28);
@@ -321,6 +323,8 @@
             // 
             // settingsTabPage
             // 
+            this.settingsTabPage.Controls.Add(this.StartingLocationLabel);
+            this.settingsTabPage.Controls.Add(this.startingLocationBox);
             this.settingsTabPage.Controls.Add(this.gameFilenameTextBox);
             this.settingsTabPage.Controls.Add(this.gameFilenameLabel);
             this.settingsTabPage.Controls.Add(this.exitMessageTextBox);
@@ -335,6 +339,27 @@
             this.settingsTabPage.TabIndex = 1;
             this.settingsTabPage.Text = "Settings";
             this.settingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // StartingLocationLabel
+            // 
+            this.StartingLocationLabel.AutoSize = true;
+            this.StartingLocationLabel.Location = new System.Drawing.Point(13, 355);
+            this.StartingLocationLabel.Name = "StartingLocationLabel";
+            this.StartingLocationLabel.Size = new System.Drawing.Size(119, 17);
+            this.StartingLocationLabel.TabIndex = 11;
+            this.StartingLocationLabel.Text = "Starting Location:";
+            // 
+            // startingLocationBox
+            // 
+            this.startingLocationBox.DataSource = this.roomsBindingSource;
+            this.startingLocationBox.DisplayMember = "Name";
+            this.startingLocationBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.startingLocationBox.FormattingEnabled = true;
+            this.startingLocationBox.Location = new System.Drawing.Point(12, 375);
+            this.startingLocationBox.Name = "startingLocationBox";
+            this.startingLocationBox.Size = new System.Drawing.Size(436, 24);
+            this.startingLocationBox.TabIndex = 10;
+            this.startingLocationBox.SelectionChangeCommitted += new System.EventHandler(this.startingLocationBox_SelectionChangeCommitted);
             // 
             // gameFilenameTextBox
             // 
@@ -475,6 +500,8 @@
         private System.Windows.Forms.Label welcomeMessageLabel;
         private System.Windows.Forms.TextBox gameFilenameTextBox;
         private System.Windows.Forms.Label gameFilenameLabel;
+        private System.Windows.Forms.ComboBox startingLocationBox;
+        private System.Windows.Forms.Label StartingLocationLabel;
     }
 }
 

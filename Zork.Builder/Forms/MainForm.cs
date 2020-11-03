@@ -66,6 +66,8 @@ namespace Zork.Builder
                 _ViewModel.FullPath = openFileDialog.FileName;
                 tabControl.Enabled = true;
                 UpdateTitle();
+
+                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
             }
         }
         private void AddRoomButton_Click(object sender, EventArgs e)
@@ -99,6 +101,11 @@ namespace Zork.Builder
             {
                 Text = $"Zork Builder - {Path.GetFileNameWithoutExtension(_ViewModel.FullPath)}";
             }
+        }
+
+        private void startingLocationBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _ViewModel.StartingLocation = startingLocationBox.SelectedItem.ToString();
         }
     }
 }

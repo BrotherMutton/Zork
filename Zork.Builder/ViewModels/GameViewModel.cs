@@ -42,7 +42,15 @@ namespace Zork.Builder.ViewModels
             set => _game.ExitMessage = value;
         }
 
+        public string StartingLocation
+        {
+            get => _game.StartingLocation;
+            set => _game.StartingLocation = value;
+        }
+
         public string FullPath { get; set; }
+
+        
 
         public GameViewModel(Game game = null)
         {
