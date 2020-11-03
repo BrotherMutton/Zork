@@ -19,6 +19,7 @@ namespace Zork.Builder
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateGame();
+            UpdateTitle();
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -30,6 +31,7 @@ namespace Zork.Builder
             else
             {
                 _ViewModel.Save();
+                UpdateTitle();
             }
 
         }
@@ -40,6 +42,7 @@ namespace Zork.Builder
             {
                 _ViewModel.FullPath = saveFileDialog.FileName;
                 _ViewModel.Save();
+                UpdateTitle();
             }
         }
 
@@ -60,6 +63,7 @@ namespace Zork.Builder
             {
                 _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 _ViewModel.FullPath = openFileDialog.FileName;
+                UpdateTitle();
             }
         }
         private void AddRoomButton_Click(object sender, EventArgs e)
@@ -78,6 +82,20 @@ namespace Zork.Builder
         private void CloseGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateGame();
+            UpdateTitle();
+        }
+
+        private void UpdateTitle()
+        {
+
+            if (string.IsNullOrWhiteSpace(_ViewModel.FullPath))
+            {
+                Text = "Zork Builder - Untitled";
+            }
+            else
+            {
+                Text = $"Zork Builder - {Path.GetFileNameWithoutExtension(_ViewModel.FullPath)}";
+            }
         }
     }
 }
