@@ -76,7 +76,23 @@ namespace Zork.Builder
             {
                 if (addRoomForm.ShowDialog() == DialogResult.OK)
                 {
-                    _ViewModel.Rooms.Add(new Room(addRoomForm.RoomName));
+                    bool foundExistingRoom = false;
+                    foreach (Room room in _ViewModel.Rooms)
+                    {
+                        if(room.Name.Equals(addRoomForm.RoomName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            foundExistingRoom = true;
+                        }
+                    }
+
+                    if (foundExistingRoom == false)
+                    {
+                        _ViewModel.Rooms.Add(new Room(addRoomForm.RoomName));
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Room named \"{addRoomForm.RoomName}\" already exists.");
+                    }
                 }
             }
         }
