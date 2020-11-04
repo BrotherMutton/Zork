@@ -65,6 +65,19 @@
             this.exitMessageLabel = new System.Windows.Forms.Label();
             this.welcomeMessageTextBox = new System.Windows.Forms.TextBox();
             this.welcomeMessageLabel = new System.Windows.Forms.Label();
+            this.NeighborsLabel = new System.Windows.Forms.Label();
+            this.NorthLabel = new System.Windows.Forms.Label();
+            this.EastLabel = new System.Windows.Forms.Label();
+            this.UpLabel = new System.Windows.Forms.Label();
+            this.NorthComboBox = new System.Windows.Forms.ComboBox();
+            this.EastComboBox = new System.Windows.Forms.ComboBox();
+            this.UpComboBox = new System.Windows.Forms.ComboBox();
+            this.SouthLabel = new System.Windows.Forms.Label();
+            this.WestLabel = new System.Windows.Forms.Label();
+            this.DownLabel = new System.Windows.Forms.Label();
+            this.SouthComboBox = new System.Windows.Forms.ComboBox();
+            this.WesstComboBox = new System.Windows.Forms.ComboBox();
+            this.DownComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.worldTabPage.SuspendLayout();
@@ -212,6 +225,19 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.DownComboBox);
+            this.groupBox1.Controls.Add(this.WesstComboBox);
+            this.groupBox1.Controls.Add(this.SouthComboBox);
+            this.groupBox1.Controls.Add(this.DownLabel);
+            this.groupBox1.Controls.Add(this.WestLabel);
+            this.groupBox1.Controls.Add(this.SouthLabel);
+            this.groupBox1.Controls.Add(this.UpComboBox);
+            this.groupBox1.Controls.Add(this.EastComboBox);
+            this.groupBox1.Controls.Add(this.NorthComboBox);
+            this.groupBox1.Controls.Add(this.UpLabel);
+            this.groupBox1.Controls.Add(this.EastLabel);
+            this.groupBox1.Controls.Add(this.NorthLabel);
+            this.groupBox1.Controls.Add(this.NeighborsLabel);
             this.groupBox1.Controls.Add(this.descriptionTextBox);
             this.groupBox1.Controls.Add(this.descriptionLabel);
             this.groupBox1.Controls.Add(this.nameTextBox);
@@ -435,6 +461,135 @@
             this.welcomeMessageLabel.TabIndex = 4;
             this.welcomeMessageLabel.Text = "Welcome Message:";
             // 
+            // NeighborsLabel
+            // 
+            this.NeighborsLabel.AutoSize = true;
+            this.NeighborsLabel.Location = new System.Drawing.Point(11, 229);
+            this.NeighborsLabel.Name = "NeighborsLabel";
+            this.NeighborsLabel.Size = new System.Drawing.Size(77, 17);
+            this.NeighborsLabel.TabIndex = 12;
+            this.NeighborsLabel.Text = "Neighbors:";
+            // 
+            // NorthLabel
+            // 
+            this.NorthLabel.AutoSize = true;
+            this.NorthLabel.Location = new System.Drawing.Point(14, 259);
+            this.NorthLabel.Name = "NorthLabel";
+            this.NorthLabel.Size = new System.Drawing.Size(47, 17);
+            this.NorthLabel.TabIndex = 13;
+            this.NorthLabel.Text = "North:";
+            // 
+            // EastLabel
+            // 
+            this.EastLabel.AutoSize = true;
+            this.EastLabel.Location = new System.Drawing.Point(14, 290);
+            this.EastLabel.Name = "EastLabel";
+            this.EastLabel.Size = new System.Drawing.Size(44, 17);
+            this.EastLabel.TabIndex = 14;
+            this.EastLabel.Text = "East: ";
+            // 
+            // UpLabel
+            // 
+            this.UpLabel.AutoSize = true;
+            this.UpLabel.Location = new System.Drawing.Point(14, 321);
+            this.UpLabel.Name = "UpLabel";
+            this.UpLabel.Size = new System.Drawing.Size(34, 17);
+            this.UpLabel.TabIndex = 15;
+            this.UpLabel.Text = "Up: ";
+            // 
+            // NorthComboBox
+            // 
+            this.NorthComboBox.DataSource = this.roomsBindingSource;
+            this.NorthComboBox.DisplayMember = "Neighbors";
+            this.NorthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.NorthComboBox.FormattingEnabled = true;
+            this.NorthComboBox.Location = new System.Drawing.Point(82, 259);
+            this.NorthComboBox.Name = "NorthComboBox";
+            this.NorthComboBox.Size = new System.Drawing.Size(203, 24);
+            this.NorthComboBox.TabIndex = 16;
+            // 
+            // EastComboBox
+            // 
+            this.EastComboBox.DataSource = this.roomsBindingSource;
+            this.EastComboBox.DisplayMember = "Neighbors";
+            this.EastComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EastComboBox.FormattingEnabled = true;
+            this.EastComboBox.Location = new System.Drawing.Point(82, 290);
+            this.EastComboBox.Name = "EastComboBox";
+            this.EastComboBox.Size = new System.Drawing.Size(203, 24);
+            this.EastComboBox.TabIndex = 17;
+            // 
+            // UpComboBox
+            // 
+            this.UpComboBox.DataSource = this.roomsBindingSource;
+            this.UpComboBox.DisplayMember = "Neighbors";
+            this.UpComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.UpComboBox.FormattingEnabled = true;
+            this.UpComboBox.Location = new System.Drawing.Point(82, 321);
+            this.UpComboBox.Name = "UpComboBox";
+            this.UpComboBox.Size = new System.Drawing.Size(203, 24);
+            this.UpComboBox.TabIndex = 18;
+            // 
+            // SouthLabel
+            // 
+            this.SouthLabel.AutoSize = true;
+            this.SouthLabel.Location = new System.Drawing.Point(318, 259);
+            this.SouthLabel.Name = "SouthLabel";
+            this.SouthLabel.Size = new System.Drawing.Size(53, 17);
+            this.SouthLabel.TabIndex = 19;
+            this.SouthLabel.Text = "South: ";
+            // 
+            // WestLabel
+            // 
+            this.WestLabel.AutoSize = true;
+            this.WestLabel.Location = new System.Drawing.Point(318, 290);
+            this.WestLabel.Name = "WestLabel";
+            this.WestLabel.Size = new System.Drawing.Size(48, 17);
+            this.WestLabel.TabIndex = 20;
+            this.WestLabel.Text = "West: ";
+            // 
+            // DownLabel
+            // 
+            this.DownLabel.AutoSize = true;
+            this.DownLabel.Location = new System.Drawing.Point(318, 321);
+            this.DownLabel.Name = "DownLabel";
+            this.DownLabel.Size = new System.Drawing.Size(51, 17);
+            this.DownLabel.TabIndex = 21;
+            this.DownLabel.Text = "Down: ";
+            // 
+            // SouthComboBox
+            // 
+            this.SouthComboBox.DataSource = this.roomsBindingSource;
+            this.SouthComboBox.DisplayMember = "Neighbors";
+            this.SouthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SouthComboBox.FormattingEnabled = true;
+            this.SouthComboBox.Location = new System.Drawing.Point(397, 259);
+            this.SouthComboBox.Name = "SouthComboBox";
+            this.SouthComboBox.Size = new System.Drawing.Size(203, 24);
+            this.SouthComboBox.TabIndex = 22;
+            // 
+            // WesstComboBox
+            // 
+            this.WesstComboBox.DataSource = this.roomsBindingSource;
+            this.WesstComboBox.DisplayMember = "Neighbors";
+            this.WesstComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.WesstComboBox.FormattingEnabled = true;
+            this.WesstComboBox.Location = new System.Drawing.Point(397, 290);
+            this.WesstComboBox.Name = "WesstComboBox";
+            this.WesstComboBox.Size = new System.Drawing.Size(203, 24);
+            this.WesstComboBox.TabIndex = 23;
+            // 
+            // DownComboBox
+            // 
+            this.DownComboBox.DataSource = this.roomsBindingSource;
+            this.DownComboBox.DisplayMember = "Neighbors";
+            this.DownComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DownComboBox.FormattingEnabled = true;
+            this.DownComboBox.Location = new System.Drawing.Point(397, 321);
+            this.DownComboBox.Name = "DownComboBox";
+            this.DownComboBox.Size = new System.Drawing.Size(203, 24);
+            this.DownComboBox.TabIndex = 24;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -502,6 +657,19 @@
         private System.Windows.Forms.Label gameFilenameLabel;
         private System.Windows.Forms.ComboBox startingLocationBox;
         private System.Windows.Forms.Label StartingLocationLabel;
+        private System.Windows.Forms.ComboBox UpComboBox;
+        private System.Windows.Forms.ComboBox EastComboBox;
+        private System.Windows.Forms.ComboBox NorthComboBox;
+        private System.Windows.Forms.Label UpLabel;
+        private System.Windows.Forms.Label EastLabel;
+        private System.Windows.Forms.Label NorthLabel;
+        private System.Windows.Forms.Label NeighborsLabel;
+        private System.Windows.Forms.Label DownLabel;
+        private System.Windows.Forms.Label WestLabel;
+        private System.Windows.Forms.Label SouthLabel;
+        private System.Windows.Forms.ComboBox DownComboBox;
+        private System.Windows.Forms.ComboBox WesstComboBox;
+        private System.Windows.Forms.ComboBox SouthComboBox;
     }
 }
 
