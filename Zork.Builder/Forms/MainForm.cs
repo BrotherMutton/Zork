@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.Windows.Forms;
 using Zork.Builder.ViewModels;
 using Zork.Builder.Forms;
+using Zork.Builder.UserControls;
+using System.Collections.Generic;
 
 namespace Zork.Builder
 {
@@ -14,6 +16,12 @@ namespace Zork.Builder
             InitializeComponent();
             _ViewModel = new GameViewModel(new Game(new World(), null));
             gameViewModelBindingSource.DataSource = _ViewModel;
+            InitalizeViewModels();
+
+            _neighborViews.AddRange(new NeighborView[] {
+                northNeighborView, southNeighborView, eastNeighborView, westNeighborView
+            });
+
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,6 +64,7 @@ namespace Zork.Builder
             _ViewModel.FullPath = null;
             _ViewModel.Game = new Game(new World(), null);
             tabControl.Enabled = true;
+            InitalizeViewModels();
         }
 
         private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,6 +77,7 @@ namespace Zork.Builder
                 UpdateTitle();
 
                 startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
+                InitalizeViewModels();
             }
         }
         private void AddRoomButton_Click(object sender, EventArgs e)
@@ -106,6 +116,14 @@ namespace Zork.Builder
             tabControl.Enabled = false;
         }
 
+        private void InitalizeViewModels()
+        {
+            eastNeighborView.ViewModel = _ViewModel;
+            westNeighborView.ViewModel = _ViewModel;
+            northNeighborView.ViewModel = _ViewModel;
+            southNeighborView.ViewModel = _ViewModel;
+        }
+
         private void UpdateTitle()
         {
 
@@ -123,5 +141,15 @@ namespace Zork.Builder
         {
             _ViewModel.StartingLocation = startingLocationBox.SelectedItem.ToString();
         }
+
+        private void roomsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var neighborView in _neighborViews)
+            {
+                neighborView.Room = (Room)roomsListBox.SelectedItem;
+            }
+        }
+
+        private readonly List<NeighborView> _neighborViews = new List<NeighborView>();
     }
 }

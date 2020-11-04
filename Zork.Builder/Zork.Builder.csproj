@@ -61,6 +61,12 @@
     <Compile Include="Forms\AddRoomForm.Designer.cs">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NeighborView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\NeighborView.Designer.cs">
+      <DependentUpon>NeighborView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SettingsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\NeighborView.resx">
+      <DependentUpon>NeighborView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
