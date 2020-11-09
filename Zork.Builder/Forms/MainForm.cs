@@ -76,8 +76,8 @@ namespace Zork.Builder
                 tabControl.Enabled = true;
                 UpdateTitle();
 
-                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
                 InitalizeViewModels();
+                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
             }
         }
         private void AddRoomButton_Click(object sender, EventArgs e)
@@ -118,10 +118,10 @@ namespace Zork.Builder
 
         private void InitalizeViewModels()
         {
-            eastNeighborView.ViewModel = _ViewModel;
-            westNeighborView.ViewModel = _ViewModel;
-            northNeighborView.ViewModel = _ViewModel;
-            southNeighborView.ViewModel = _ViewModel;
+            foreach (var neighborView in _neighborViews)
+            {
+                neighborView.ViewModel = _ViewModel;
+            }
         }
 
         private void UpdateTitle()

@@ -40,15 +40,15 @@
         "Name": "Forest 1",
         "Description": "This is a forest, with trees in all directions around you.",
         "Neighbors": {
-          "SOUTH": "Forest 3",
-          "EAST": "West of House"
+          "SOUTH": "Clearing",
+          "WEST": "Behind House"
         }
       },
       {
         "Name": "Forest 2",
         "Description": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.",
         "Neighbors": {
-          "SOUTH": "Clearing",
+          "WEST": "Behind House",
           "EAST": "Clearing"
         }
       },

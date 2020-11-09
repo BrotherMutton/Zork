@@ -23,7 +23,7 @@ namespace Zork
         public Room(string name) => Name = name;
 
         [JsonIgnore]
-        public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
+        public IReadOnlyDictionary<Directions, Room> Neighbors => _neighbors;
     
         public static bool operator ==(Room lhs, Room rhs)
         {
@@ -39,9 +39,21 @@ namespace Zork
             return lhs.Name == rhs.Name;
         }
 
+        public void AssignNeighbor(Directions direction, Room neighbor)
+        {
+            _neighbors[direction] = neighbor;
+            NeighborNames[direction] = neighbor.Name;
+        }
+
+        public void RemoveNeighbor(Directions direction)
+        {
+            _neighbors.Remove(direction);
+            NeighborNames.Remove(direction);
+        }
+
         public static bool operator !=(Room lhs, Room rhs) => !(lhs == rhs);
 
-        public override bool Equals(object obj) => obj is Room room ? this == room : false;
+        public override bool Equals(object obj) => obj is Room room && this == room;
 
         public bool Equals(Room other) => this == other;
 
@@ -51,14 +63,15 @@ namespace Zork
 
         public void UpdateNeighbors(World world)
         {
-            var neighbors = new Dictionary<Directions, Room>();
+            _neighbors.Clear();
 
             foreach (var entry in NeighborNames)
             {
-                neighbors.Add(entry.Key, world.GetRoomsByName()[entry.Value]);
+                _neighbors.Add(entry.Key, world.GetRoomsByName()[entry.Value]);
 
             }
-            Neighbors = neighbors;
         }
+
+        private Dictionary<Directions, Room> _neighbors = new Dictionary<Directions, Room>();
     }
 }

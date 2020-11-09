@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Zork.Builder.ViewModels;
@@ -16,16 +17,20 @@ namespace Zork.Builder.UserControls
             set
             {
                 _viewmodel = value;
+                neighborComboBox.SelectedIndexChanged -= NeighborComboBox_SelectedIndexChanged;
                 if ( _viewmodel != null && _viewmodel.Rooms != null)
                 {
-                    neighborComboBox.DataSource = _viewmodel.Rooms;
-                    // hacky but works
-                    _viewmodel.Rooms.Add(NoNeighbor);
+                    var rooms = new List<Room>(_viewmodel.Rooms);
+                    rooms.Insert(0, NoNeighbor);
+                    
+                    neighborComboBox.DataSource = rooms;                    
                 }
                 else
                 {
                     neighborComboBox.DataSource = new BindingList<Room>(Array.Empty<Room>());
                 }
+
+                neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;
 
                 // Todo: Make sure the specified room property (i.e the room you are specifing a neighbor for) isnt in the list
                 // Todo: adding NoNeighbor
@@ -49,19 +54,12 @@ namespace Zork.Builder.UserControls
             set
             {
                 _room = value;
-                
-                if (_room?.Neighbors.TryGetValue(Direction, out Room room) == true)
+                if (_room != null && _room.Neighbors.TryGetValue(Direction, out Room neighbor))
                 {
-                    //todo: select the neighbor in the combo box
-                    // ONLY WORKS AFTER YOU SELECT A DIFFERENT ROOM
-                    // Checking to see the room, in the direction of this View, and getting its Name
-                    _room.NeighborNames.TryGetValue(Direction, out string NeighborName);
-                    // Setting the combo box to that Room
-                    neighborComboBox.SelectedIndex = neighborComboBox.FindString(NeighborName);
+                    neighborComboBox.SelectedItem = neighbor;
                 }
                 else
                 {
-                    //todo: select none
                     neighborComboBox.SelectedItem = NoNeighbor;
                 }
             }
@@ -69,9 +67,26 @@ namespace Zork.Builder.UserControls
 
         public NeighborView()
         {
-            InitializeComponent();
-            Direction = _direction;
-            neighborComboBox.DataSource = Array.Empty<Room>();
+            InitializeComponent();                        
+        }
+
+        private void NeighborComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_room != null)
+            {
+                Room selectedRoom = (Room)neighborComboBox.SelectedItem;
+                if (selectedRoom != null)
+                {
+                    if (selectedRoom == NoNeighbor)
+                    {
+                        _room.RemoveNeighbor(Direction);
+                    }
+                    else
+                    {
+                        _room.AssignNeighbor(Direction, selectedRoom);
+                    }
+                }
+            }
         }
 
         private Directions _direction;
