@@ -6,6 +6,7 @@ using Zork.Builder.ViewModels;
 using Zork.Builder.Forms;
 using Zork.Builder.UserControls;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Zork.Builder
 {
@@ -59,14 +60,6 @@ namespace Zork.Builder
             Close();
         }
 
-        private void CreateGame()
-        {
-            _ViewModel.FullPath = null;
-            _ViewModel.Game = new Game(new World(), null);
-            tabControl.Enabled = true;
-            InitalizeViewModels();
-        }
-
         private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -77,7 +70,10 @@ namespace Zork.Builder
                 UpdateTitle();
 
                 InitalizeViewModels();
-                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
+                
+                _startingLocationList = new List<Room>(_ViewModel.Rooms);
+                startingLocationBox.DataSource = _startingLocationList;
+                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation);                    
             }
         }
 
@@ -107,15 +103,35 @@ namespace Zork.Builder
                     }
                 }
             }
-        }
-
-        private GameViewModel _ViewModel;
+        }       
 
         private void CloseGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateGame();
             UpdateTitle();
             tabControl.Enabled = false;
+        }
+
+        private void StartingLocationBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _ViewModel.StartingLocation = startingLocationBox.SelectedItem.ToString();
+        }
+
+        private void RoomsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var neighborView in _neighborViews)
+            {
+                neighborView.Room = (Room)roomsListBox.SelectedItem;
+                neighborView._SelectedRoom = (Room)roomsListBox.SelectedItem;
+            }
+        }
+
+        private void CreateGame()
+        {
+            _ViewModel.FullPath = null;
+            _ViewModel.Game = new Game(new World(), null);
+            tabControl.Enabled = true;
+            InitalizeViewModels();
         }
 
         private void InitalizeViewModels()
@@ -138,19 +154,10 @@ namespace Zork.Builder
             }
         }
 
-        private void StartingLocationBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            _ViewModel.StartingLocation = startingLocationBox.SelectedItem.ToString();
-        }
-
-        private void RoomsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            foreach (var neighborView in _neighborViews)
-            {
-                neighborView.Room = (Room)roomsListBox.SelectedItem;
-            }
-        }
-
         private readonly List<NeighborView> _neighborViews = new List<NeighborView>();
+
+        private List<Room> _startingLocationList;
+
+        private GameViewModel _ViewModel;
     }
 }

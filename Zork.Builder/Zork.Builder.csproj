@@ -67,12 +67,6 @@
     <Compile Include="UserControls\NeighborView.Designer.cs">
       <DependentUpon>NeighborView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SettingsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\SettingsView.Designer.cs">
-      <DependentUpon>SettingsView.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -82,12 +76,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\WorldView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\WorldView.Designer.cs">
-      <DependentUpon>WorldView.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Forms\AddRoomForm.resx">
       <DependentUpon>AddRoomForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,12 +93,6 @@
     </Compile>
     <EmbeddedResource Include="UserControls\NeighborView.resx">
       <DependentUpon>NeighborView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SettingsView.resx">
-      <DependentUpon>SettingsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\WorldView.resx">
-      <DependentUpon>WorldView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Zork.Builder.ViewModels.GameViewModel.datasource" />

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Zork.Builder.ViewModels;
 
@@ -20,19 +19,17 @@ namespace Zork.Builder.UserControls
                 neighborComboBox.SelectedIndexChanged -= NeighborComboBox_SelectedIndexChanged;
                 if ( _viewmodel != null && _viewmodel.Rooms != null)
                 {
-                    var rooms = new List<Room>(_viewmodel.Rooms);
-                    rooms.Insert(0, NoNeighbor);
+                    neighborRoomsList = new List<Room>(_viewmodel.Rooms);
+                    neighborRoomsList.Insert(0, NoNeighbor);
                     
-                    neighborComboBox.DataSource = rooms;                    
+                    neighborComboBox.DataSource = neighborRoomsList;                    
                 }
                 else
                 {
                     neighborComboBox.DataSource = new BindingList<Room>(Array.Empty<Room>());
                 }
 
-                neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;
-
-                // Todo: Make sure the specified room property (i.e the room you are specifing a neighbor for) isnt in the list
+                neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;                
             }
         }
 
@@ -72,7 +69,8 @@ namespace Zork.Builder.UserControls
         {
             if (_room != null)
             {
-                Room selectedRoom = (Room)neighborComboBox.SelectedItem;
+                Room selectedRoom = (Room)neighborComboBox.SelectedItem; 
+
                 if (selectedRoom != null)
                 {
                     if (selectedRoom == NoNeighbor)
@@ -86,7 +84,26 @@ namespace Zork.Builder.UserControls
                 }
             }
         }
+        
+        private void neighborComboBox_Enter(object sender, EventArgs e)
+        {            
+            if (neighborRoomsList.Contains(_SelectedRoom))
+            {
+                neighborRoomsList.Remove(_SelectedRoom);
+            }
+            neighborComboBox.DataSource = null;
+            neighborComboBox.DataSource = neighborRoomsList;
+        }
 
+        private void neighborComboBox_Leave(object sender, EventArgs e)
+        {
+            neighborRoomsList.Add(_SelectedRoom);
+            neighborComboBox.DataSource = null;
+            neighborComboBox.DataSource = neighborRoomsList;
+        }
+
+        public Room _SelectedRoom;
+        public List<Room> neighborRoomsList;
         private Directions _direction;
         private Room _room;
         private GameViewModel _viewmodel;

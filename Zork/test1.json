@@ -4,16 +4,23 @@
       {
         "Name": "Test1",
         "Description": null,
-        "Neighbors": {}
+        "Neighbors": {
+          "NORTH": "Test2",
+          "SOUTH": "Test2",
+          "WEST": "Test2"
+        }
       },
       {
         "Name": "Test2",
         "Description": null,
-        "Neighbors": {}
+        "Neighbors": {
+          "WEST": "Test1",
+          "EAST": "Test1"
+        }
       }
     ]
   },
-  "StartingLocation": "Test2",
+  "StartingLocation": "Test1",
   "WelcomeMessage": null,
   "ExitMessage": null
 }
