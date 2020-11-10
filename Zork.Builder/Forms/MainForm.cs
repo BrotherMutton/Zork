@@ -16,12 +16,12 @@ namespace Zork.Builder
             InitializeComponent();
             _ViewModel = new GameViewModel(new Game(new World(), null));
             gameViewModelBindingSource.DataSource = _ViewModel;
-            InitalizeViewModels();
 
             _neighborViews.AddRange(new NeighborView[] {
                 northNeighborView, southNeighborView, eastNeighborView, westNeighborView
             });
 
+            InitalizeViewModels();
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,6 +80,7 @@ namespace Zork.Builder
                 startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation.ToString());
             }
         }
+
         private void AddRoomButton_Click(object sender, EventArgs e)
         {
             using (var addRoomForm = new AddRoomForm())
@@ -89,7 +90,7 @@ namespace Zork.Builder
                     bool foundExistingRoom = false;
                     foreach (Room room in _ViewModel.Rooms)
                     {
-                        if(room.Name.Equals(addRoomForm.RoomName, StringComparison.InvariantCultureIgnoreCase))
+                        if (room.Name.Equals(addRoomForm.RoomName, StringComparison.InvariantCultureIgnoreCase))
                         {
                             foundExistingRoom = true;
                         }
@@ -98,6 +99,7 @@ namespace Zork.Builder
                     if (foundExistingRoom == false)
                     {
                         _ViewModel.Rooms.Add(new Room(addRoomForm.RoomName));
+                        InitalizeViewModels();
                     }
                     else
                     {
@@ -126,7 +128,6 @@ namespace Zork.Builder
 
         private void UpdateTitle()
         {
-
             if (string.IsNullOrWhiteSpace(_ViewModel.FullPath))
             {
                 Text = "Zork Builder";
@@ -137,12 +138,12 @@ namespace Zork.Builder
             }
         }
 
-        private void startingLocationBox_SelectionChangeCommitted(object sender, EventArgs e)
+        private void StartingLocationBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             _ViewModel.StartingLocation = startingLocationBox.SelectedItem.ToString();
         }
 
-        private void roomsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void RoomsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (var neighborView in _neighborViews)
             {

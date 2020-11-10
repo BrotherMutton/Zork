@@ -67,6 +67,11 @@
           "WEST": "Forest 2",
           "SOUTH": "Forest 3"
         }
+      },
+      {
+        "Name": "Test1",
+        "Description": null,
+        "Neighbors": {}
       }
     ]
   },

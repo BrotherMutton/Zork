@@ -1,0 +1,29 @@
+{
+  "World": {
+    "Rooms": [
+      {
+        "Name": "Pie1",
+        "Description": null,
+        "Neighbors": null
+      },
+      {
+        "Name": "Pie2",
+        "Description": null,
+        "Neighbors": null
+      },
+      {
+        "Name": "Pie3",
+        "Description": null,
+        "Neighbors": null
+      },
+      {
+        "Name": "Pie4",
+        "Description": null,
+        "Neighbors": null
+      }
+    ]
+  },
+  "StartingLocation": null,
+  "WelcomeMessage": null,
+  "ExitMessage": null
+}

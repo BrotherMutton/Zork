@@ -1,0 +1,19 @@
+{
+  "World": {
+    "Rooms": [
+      {
+        "Name": "Test1",
+        "Description": null,
+        "Neighbors": {}
+      },
+      {
+        "Name": "Test2",
+        "Description": null,
+        "Neighbors": {}
+      }
+    ]
+  },
+  "StartingLocation": "Test2",
+  "WelcomeMessage": null,
+  "ExitMessage": null
+}

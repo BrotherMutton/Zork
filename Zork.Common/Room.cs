@@ -18,7 +18,7 @@ namespace Zork
         public string Description { get; set; }
 
         [JsonProperty(PropertyName = "Neighbors", Order = 3)]
-        public Dictionary<Directions, string> NeighborNames;
+        public Dictionary<Directions, string> NeighborNames => _NeighborNames;
 
         public Room(string name) => Name = name;
 
@@ -73,5 +73,7 @@ namespace Zork
         }
 
         private Dictionary<Directions, Room> _neighbors = new Dictionary<Directions, Room>();
+
+        private Dictionary<Directions, string> _NeighborNames = new Dictionary<Directions, string>();
     }
 }

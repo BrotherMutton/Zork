@@ -193,7 +193,7 @@
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Enabled = false;
             this.tabControl.Location = new System.Drawing.Point(0, 28);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1067, 576);
@@ -207,9 +207,9 @@
             this.worldTabPage.Controls.Add(this.roomsListBox);
             this.worldTabPage.Controls.Add(this.labelRooms);
             this.worldTabPage.Location = new System.Drawing.Point(4, 25);
-            this.worldTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.worldTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.worldTabPage.Name = "worldTabPage";
-            this.worldTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.worldTabPage.Padding = new System.Windows.Forms.Padding(4);
             this.worldTabPage.Size = new System.Drawing.Size(1059, 547);
             this.worldTabPage.TabIndex = 0;
             this.worldTabPage.Text = "World";
@@ -226,9 +226,9 @@
             this.groupBox1.Controls.Add(this.nameTextBox);
             this.groupBox1.Controls.Add(this.nameLabel);
             this.groupBox1.Location = new System.Drawing.Point(232, 25);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(813, 494);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
@@ -238,21 +238,22 @@
             // 
             this.southNeighborView.Direction = Zork.Directions.SOUTH;
             this.southNeighborView.Location = new System.Drawing.Point(225, 396);
-            this.southNeighborView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.southNeighborView.Margin = new System.Windows.Forms.Padding(5);
             this.southNeighborView.Name = "southNeighborView";
             this.southNeighborView.Room = null;
-            this.southNeighborView.Size = new System.Drawing.Size(309, 85);
+            this.southNeighborView.Size = new System.Drawing.Size(327, 85);
             this.southNeighborView.TabIndex = 15;
             this.southNeighborView.ViewModel = null;
             // 
             // eastNeighborView
             // 
+            this.eastNeighborView.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.eastNeighborView.Direction = Zork.Directions.EAST;
             this.eastNeighborView.Location = new System.Drawing.Point(496, 304);
-            this.eastNeighborView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eastNeighborView.Margin = new System.Windows.Forms.Padding(5);
             this.eastNeighborView.Name = "eastNeighborView";
             this.eastNeighborView.Room = null;
-            this.eastNeighborView.Size = new System.Drawing.Size(309, 85);
+            this.eastNeighborView.Size = new System.Drawing.Size(308, 85);
             this.eastNeighborView.TabIndex = 14;
             this.eastNeighborView.ViewModel = null;
             // 
@@ -260,10 +261,10 @@
             // 
             this.westNeighborView.Direction = Zork.Directions.WEST;
             this.westNeighborView.Location = new System.Drawing.Point(12, 304);
-            this.westNeighborView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.westNeighborView.Margin = new System.Windows.Forms.Padding(5);
             this.westNeighborView.Name = "westNeighborView";
             this.westNeighborView.Room = null;
-            this.westNeighborView.Size = new System.Drawing.Size(309, 85);
+            this.westNeighborView.Size = new System.Drawing.Size(385, 85);
             this.westNeighborView.TabIndex = 13;
             this.westNeighborView.ViewModel = null;
             // 
@@ -271,7 +272,7 @@
             // 
             this.northNeighborView.Direction = Zork.Directions.NORTH;
             this.northNeighborView.Location = new System.Drawing.Point(225, 215);
-            this.northNeighborView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.northNeighborView.Margin = new System.Windows.Forms.Padding(5);
             this.northNeighborView.Name = "northNeighborView";
             this.northNeighborView.Room = null;
             this.northNeighborView.Size = new System.Drawing.Size(327, 82);
@@ -282,7 +283,7 @@
             // 
             this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Description", true));
             this.descriptionTextBox.Location = new System.Drawing.Point(8, 98);
-            this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(592, 109);
@@ -311,7 +312,7 @@
             // 
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.roomsBindingSource, "Name", true));
             this.nameTextBox.Location = new System.Drawing.Point(8, 44);
-            this.nameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(429, 22);
             this.nameTextBox.TabIndex = 9;
@@ -330,7 +331,7 @@
             // 
             this.removeRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.removeRoomButton.Location = new System.Drawing.Point(124, 491);
-            this.removeRoomButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.removeRoomButton.Margin = new System.Windows.Forms.Padding(4);
             this.removeRoomButton.Name = "removeRoomButton";
             this.removeRoomButton.Size = new System.Drawing.Size(100, 28);
             this.removeRoomButton.TabIndex = 7;
@@ -341,7 +342,7 @@
             // 
             this.addRoomButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.addRoomButton.Location = new System.Drawing.Point(15, 491);
-            this.addRoomButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addRoomButton.Margin = new System.Windows.Forms.Padding(4);
             this.addRoomButton.Name = "addRoomButton";
             this.addRoomButton.Size = new System.Drawing.Size(100, 28);
             this.addRoomButton.TabIndex = 6;
@@ -358,12 +359,12 @@
             this.roomsListBox.FormattingEnabled = true;
             this.roomsListBox.ItemHeight = 16;
             this.roomsListBox.Location = new System.Drawing.Point(15, 25);
-            this.roomsListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.roomsListBox.Margin = new System.Windows.Forms.Padding(4);
             this.roomsListBox.Name = "roomsListBox";
-            this.roomsListBox.Size = new System.Drawing.Size(208, 452);
+            this.roomsListBox.Size = new System.Drawing.Size(208, 436);
             this.roomsListBox.TabIndex = 5;
             this.roomsListBox.ValueMember = "Description";
-            this.roomsListBox.SelectedIndexChanged += new System.EventHandler(this.roomsListBox_SelectedIndexChanged);
+            this.roomsListBox.SelectedIndexChanged += new System.EventHandler(this.RoomsListBox_SelectedIndexChanged);
             // 
             // labelRooms
             // 
@@ -386,9 +387,9 @@
             this.settingsTabPage.Controls.Add(this.welcomeMessageTextBox);
             this.settingsTabPage.Controls.Add(this.welcomeMessageLabel);
             this.settingsTabPage.Location = new System.Drawing.Point(4, 25);
-            this.settingsTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.settingsTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.settingsTabPage.Name = "settingsTabPage";
-            this.settingsTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.settingsTabPage.Padding = new System.Windows.Forms.Padding(4);
             this.settingsTabPage.Size = new System.Drawing.Size(1059, 547);
             this.settingsTabPage.TabIndex = 1;
             this.settingsTabPage.Text = "Settings";
@@ -414,13 +415,13 @@
             this.startingLocationBox.Name = "startingLocationBox";
             this.startingLocationBox.Size = new System.Drawing.Size(436, 24);
             this.startingLocationBox.TabIndex = 10;
-            this.startingLocationBox.SelectionChangeCommitted += new System.EventHandler(this.startingLocationBox_SelectionChangeCommitted);
+            this.startingLocationBox.SelectionChangeCommitted += new System.EventHandler(this.StartingLocationBox_SelectionChangeCommitted);
             // 
             // gameFilenameTextBox
             // 
             this.gameFilenameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "FullPath", true));
             this.gameFilenameTextBox.Location = new System.Drawing.Point(16, 36);
-            this.gameFilenameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gameFilenameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.gameFilenameTextBox.Name = "gameFilenameTextBox";
             this.gameFilenameTextBox.ReadOnly = true;
             this.gameFilenameTextBox.Size = new System.Drawing.Size(681, 22);
@@ -446,7 +447,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.exitMessageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "ExitMessage", true));
             this.exitMessageTextBox.Location = new System.Drawing.Point(12, 241);
-            this.exitMessageTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.exitMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.exitMessageTextBox.Multiline = true;
             this.exitMessageTextBox.Name = "exitMessageTextBox";
             this.exitMessageTextBox.Size = new System.Drawing.Size(685, 161);
@@ -471,7 +472,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.welcomeMessageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gameViewModelBindingSource, "WelcomeMessage", true));
             this.welcomeMessageTextBox.Location = new System.Drawing.Point(15, 90);
-            this.welcomeMessageTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.welcomeMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.welcomeMessageTextBox.Multiline = true;
             this.welcomeMessageTextBox.Name = "welcomeMessageTextBox";
             this.welcomeMessageTextBox.Size = new System.Drawing.Size(685, 127);
@@ -499,7 +500,7 @@
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Zork Builder";

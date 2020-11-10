@@ -50,8 +50,6 @@ namespace Zork.Builder.ViewModels
 
         public string FullPath { get; set; }
 
-        
-
         public GameViewModel(Game game = null)
         {
             Game = game;
@@ -60,7 +58,10 @@ namespace Zork.Builder.ViewModels
         public void Save()
         {
             JsonSerializer jsonSerializer = new JsonSerializer() { Formatting = Formatting.Indented };
-
+            if (StartingLocation == null)
+            {
+                StartingLocation = Rooms[0].ToString();
+            }
             using (StreamWriter streamWriter = new StreamWriter(FullPath))
             using (JsonWriter jsonWriter = new JsonTextWriter(streamWriter))
             {

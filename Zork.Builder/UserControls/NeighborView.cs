@@ -33,8 +33,6 @@ namespace Zork.Builder.UserControls
                 neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;
 
                 // Todo: Make sure the specified room property (i.e the room you are specifing a neighbor for) isnt in the list
-                // Todo: adding NoNeighbor
-                // todo: showing the default neighbor (when loading a room)
             }
         }
 
