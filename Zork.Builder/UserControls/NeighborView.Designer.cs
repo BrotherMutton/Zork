@@ -51,8 +51,8 @@
             this.neighborComboBox.Size = new System.Drawing.Size(225, 21);
             this.neighborComboBox.TabIndex = 1;
             this.neighborComboBox.SelectedIndexChanged += new System.EventHandler(this.NeighborComboBox_SelectedIndexChanged);
-            this.neighborComboBox.Enter += new System.EventHandler(this.neighborComboBox_Enter);
-            this.neighborComboBox.Leave += new System.EventHandler(this.neighborComboBox_Leave);
+            this.neighborComboBox.Enter += new System.EventHandler(this.NeighborComboBox_Enter);
+            this.neighborComboBox.Leave += new System.EventHandler(this.NeighborComboBox_Leave);
             // 
             // NeighborView
             // 

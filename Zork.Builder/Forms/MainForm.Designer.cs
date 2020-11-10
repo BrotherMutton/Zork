@@ -328,6 +328,7 @@
             this.removeRoomButton.TabIndex = 7;
             this.removeRoomButton.Text = "&Remove";
             this.removeRoomButton.UseVisualStyleBackColor = true;
+            this.removeRoomButton.Click += new System.EventHandler(this.RemoveRoomButton_Click);
             // 
             // addRoomButton
             // 
@@ -349,7 +350,7 @@
             this.roomsListBox.FormattingEnabled = true;
             this.roomsListBox.Location = new System.Drawing.Point(11, 20);
             this.roomsListBox.Name = "roomsListBox";
-            this.roomsListBox.Size = new System.Drawing.Size(157, 342);
+            this.roomsListBox.Size = new System.Drawing.Size(157, 368);
             this.roomsListBox.TabIndex = 5;
             this.roomsListBox.ValueMember = "Description";
             this.roomsListBox.SelectedIndexChanged += new System.EventHandler(this.RoomsListBox_SelectedIndexChanged);

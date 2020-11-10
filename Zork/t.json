@@ -1,0 +1,23 @@
+{
+  "World": {
+    "Rooms": [
+      {
+        "Name": "TTT",
+        "Description": null,
+        "Neighbors": {
+          "NORTH": "FFF"
+        }
+      },
+      {
+        "Name": "FFF",
+        "Description": null,
+        "Neighbors": {
+          "WEST": "TTT"
+        }
+      }
+    ]
+  },
+  "StartingLocation": "TTT",
+  "WelcomeMessage": "Welcome",
+  "ExitMessage": "Goodbye"
+}

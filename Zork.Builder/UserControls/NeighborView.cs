@@ -10,6 +10,11 @@ namespace Zork.Builder.UserControls
     {
         public static readonly Room NoNeighbor = new Room("<None>");
 
+        public NeighborView()
+        {
+            InitializeComponent();
+        }
+
         public GameViewModel ViewModel
         {
             get => _viewmodel;
@@ -58,12 +63,7 @@ namespace Zork.Builder.UserControls
                     neighborComboBox.SelectedItem = NoNeighbor;
                 }
             }
-        }
-
-        public NeighborView()
-        {
-            InitializeComponent();                        
-        }
+        }       
 
         private void NeighborComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -85,7 +85,7 @@ namespace Zork.Builder.UserControls
             }
         }
         
-        private void neighborComboBox_Enter(object sender, EventArgs e)
+        private void NeighborComboBox_Enter(object sender, EventArgs e)
         {            
             if (neighborRoomsList.Contains(_SelectedRoom))
             {
@@ -95,11 +95,34 @@ namespace Zork.Builder.UserControls
             neighborComboBox.DataSource = neighborRoomsList;
         }
 
-        private void neighborComboBox_Leave(object sender, EventArgs e)
+        private void NeighborComboBox_Leave(object sender, EventArgs e)
         {
             neighborRoomsList.Add(_SelectedRoom);
             neighborComboBox.DataSource = null;
             neighborComboBox.DataSource = neighborRoomsList;
+        }
+
+        public void RoomDeleted(Room room)
+        {            
+            foreach (Room NeighborRoom in neighborRoomsList)
+            {
+                _room = NeighborRoom;
+                if (_room.Neighbors.TryGetValue(Direction, out Room neighbor))
+                {
+                    if (neighbor == room)
+                    {
+                        _room.RemoveNeighbor(Direction);                        
+                    }
+                    else
+                    {
+                        _room.AssignNeighbor(Direction, neighbor);
+                    }
+                }
+                else
+                {
+                    neighborComboBox.SelectedItem = NoNeighbor;
+                }
+            }            
         }
 
         public Room _SelectedRoom;
