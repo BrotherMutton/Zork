@@ -4,21 +4,39 @@ using System.ComponentModel;
 using System.IO;
 
 namespace Zork.Builder.ViewModels
-{
+{  
     public class GameViewModel : INotifyPropertyChanged
     {
+#pragma warning disable CS0067       
         public event PropertyChangedEventHandler PropertyChanged;
-
+#pragma warning restore CS0067
         public Game Game
         {
             set
             {
                 if (_game != value)
                 {
+                    if (_game != null)
+                    {
+                        _game.PropertyChanged -= Game_PropertyChanged;
+                        _game.World.PropertyChanged -= Game_PropertyChanged;
+                        foreach (Room room in _game.World.Rooms)
+                        {
+                            room.PropertyChanged -= Game_PropertyChanged;
+                        }
+                    }
+
                     _game = value;
+
                     if (_game != null)
                     {
                         Rooms = new BindingList<Room>(_game.World.Rooms);
+                        _game.PropertyChanged += Game_PropertyChanged;
+                        _game.World.PropertyChanged += Game_PropertyChanged;
+                        foreach (Room room in _game.World.Rooms)
+                        {
+                            room.PropertyChanged += Game_PropertyChanged;
+                        }
                     }
                     else
                     {
@@ -28,7 +46,15 @@ namespace Zork.Builder.ViewModels
             }
         }
 
+        private void Game_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            IsModified = true;
+            PropertyChanged?.Invoke(this, e);
+        }
+
         public BindingList<Room> Rooms { get; set; }
+
+        public bool IsModified { get; set; }
 
         public string WelcomeMessage
         {
@@ -67,6 +93,8 @@ namespace Zork.Builder.ViewModels
             {
                 jsonSerializer.Serialize(jsonWriter, _game);
             }
+
+            IsModified = false;
         }
 
         private Game _game;

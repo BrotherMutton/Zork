@@ -8,6 +8,7 @@ using Zork.Builder.UserControls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Zork.Builder
 {
@@ -18,8 +19,10 @@ namespace Zork.Builder
         public MainForm()
         {
             InitializeComponent();
-            _ViewModel = new GameViewModel(new Game(new World(), null));
+
             gameViewModelBindingSource.DataSource = _ViewModel;
+
+            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
 
             _neighborViews.AddRange(new NeighborView[] {
                 northNeighborView, southNeighborView, eastNeighborView, westNeighborView
@@ -28,10 +31,40 @@ namespace Zork.Builder
             InitalizeViewModels();
         }
 
+        private void _ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            string isModifiedLabel = _ViewModel.IsModified ? "Yes" : "No";
+            IsModifiedtoolStripStatusLabel.Text = $"Modified: {isModifiedLabel}";
+        }
+
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateGame();
-            Text = "Zork Builder - Untitled";
+            if (_ViewModel.IsModified == true)
+            {
+                DialogResult result = MessageBox.Show("Save modified project?", AssemblyTitle, MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    if (SaveGame() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+                else if (result == DialogResult.No)
+                {
+                    CreateGame();
+                    Text = "Zork Builder - Untitled";
+                    _ViewModel.IsModified = false;
+                }
+            }
+            if (_ViewModel.IsModified == false)
+            {
+                CreateGame();
+                Text = "Zork Builder - Untitled";
+            }
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,7 +75,7 @@ namespace Zork.Builder
             }
             else
             {
-                _ViewModel.Save();
+                SaveGame();
                 UpdateTitle();
             }
         }
@@ -51,31 +84,88 @@ namespace Zork.Builder
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _ViewModel.FullPath = saveFileDialog.FileName;
-                _ViewModel.Save();
+                SaveGame();
                 UpdateTitle();
             }
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            if (_ViewModel.IsModified == true)
+            {
+                DialogResult result = MessageBox.Show("Save modified project?", AssemblyTitle, MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    if (SaveGame() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+                else if (result == DialogResult.No)
+                {
+                    Close();
+                }
+            }
+            else if (_ViewModel.IsModified == false)
+            {
+                Close();
+            }
         }
 
         private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (_ViewModel.IsModified == false)
             {
-                _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
-                _ViewModel.FullPath = openFileDialog.FileName;
-                tabControl.Enabled = true;
-                UpdateTitle();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
+                    _ViewModel.FullPath = openFileDialog.FileName;
+                    tabControl.Enabled = true;
+                    UpdateTitle();
 
-                InitalizeViewModels();
+                    _startingLocationList = new List<Room>(_ViewModel.Rooms);
+                    startingLocationBox.DataSource = _startingLocationList;
+                    startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation);
 
-                _startingLocationList = new List<Room>(_ViewModel.Rooms);
-                startingLocationBox.DataSource = _startingLocationList;
-                startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation);
+                    InitalizeViewModels();
+                }
+            }
+            else if (_ViewModel.IsModified == true)
+            {
+                DialogResult result = MessageBox.Show("Save modified project?", AssemblyTitle, MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    if (SaveGame() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+                else if (result == DialogResult.No)
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        _ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
+                        _ViewModel.FullPath = openFileDialog.FileName;
+                        tabControl.Enabled = true;
+                        UpdateTitle();
+
+                        _startingLocationList = new List<Room>(_ViewModel.Rooms);
+                        startingLocationBox.DataSource = _startingLocationList;
+                        startingLocationBox.SelectedIndex = startingLocationBox.FindString(_ViewModel.StartingLocation);
+
+                        InitalizeViewModels();
+
+                        _ViewModel.IsModified = false;
+                    }
+                }
             }
         }
 
@@ -149,9 +239,34 @@ namespace Zork.Builder
 
         private void CloseGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateGame();
-            UpdateTitle();
-            tabControl.Enabled = false;
+            if (_ViewModel.IsModified == true)
+            {
+                DialogResult result = MessageBox.Show("Save modified project?", AssemblyTitle, MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    if (SaveGame() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+                else if (result == DialogResult.No)
+                {
+                    CreateGame();
+                    UpdateTitle();
+                    tabControl.Enabled = false;
+                    _ViewModel.IsModified = false;
+                }
+            }
+            else if (_ViewModel.IsModified == false)
+            {
+                CreateGame();
+                UpdateTitle();
+                tabControl.Enabled = false;
+            }
         }
 
         private void RoomsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,8 +320,53 @@ namespace Zork.Builder
             _ViewModel.StartingLocation = _startingLocationList.FirstOrDefault().ToString();
         }
 
+        private DialogResult SaveGame()
+        {
+            if (string.IsNullOrEmpty(_ViewModel.FullPath))
+            {
+                var result = saveFileDialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    _ViewModel.FullPath = saveFileDialog.FileName;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return result;
+                }
+            }
+
+            _ViewModel.Save();
+            return DialogResult.OK;
+        }
+
         private readonly List<NeighborView> _neighborViews = new List<NeighborView>();
         private List<Room> _startingLocationList;
-        private GameViewModel _ViewModel;
+        private GameViewModel _ViewModel = new GameViewModel(new Game(new World(), null));
+        private bool exiting = false;
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_ViewModel.IsModified == true)
+            {
+                exiting = true;
+                
+                if (exiting == true)
+                {
+                    DialogResult result = MessageBox.Show("Save modified project?", AssemblyTitle, MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        if (SaveGame() == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+        }
     }
 }
