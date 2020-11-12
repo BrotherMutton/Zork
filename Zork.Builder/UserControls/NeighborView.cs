@@ -26,15 +26,16 @@ namespace Zork.Builder.UserControls
                 {
                     neighborRoomsList = new List<Room>(_viewmodel.Rooms);
                     neighborRoomsList.Insert(0, NoNeighbor);
-                    
-                    neighborComboBox.DataSource = neighborRoomsList;                    
+                    neighborComboBox.DataSource = neighborRoomsList;
+
+                    RefreshSelection();
                 }
                 else
                 {
                     neighborComboBox.DataSource = new BindingList<Room>(Array.Empty<Room>());
                 }
 
-                neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;                
+                neighborComboBox.SelectedIndexChanged += NeighborComboBox_SelectedIndexChanged;
             }
         }
 
@@ -54,6 +55,9 @@ namespace Zork.Builder.UserControls
             set
             {
                 _room = value;
+
+                neighborComboBox.DataSource = neighborRoomsList;
+
                 if (_room != null && _room.Neighbors.TryGetValue(Direction, out Room neighbor))
                 {
                     neighborComboBox.SelectedItem = neighbor;
@@ -123,6 +127,40 @@ namespace Zork.Builder.UserControls
                     neighborComboBox.SelectedItem = NoNeighbor;
                 }
             }            
+        }
+
+        private void RefreshSelection()
+        {
+            if (neighborRoomsList != null)
+            {
+                foreach (var neighborRoomList in neighborRoomsList)
+                {
+                    Room selectedRoom = (Room)neighborComboBox.SelectedItem;
+                }
+            }
+
+            if (_room != null)
+            {
+                if (neighborRoomsList != null)
+                {
+                    foreach (var neighborRoomList in neighborRoomsList)
+                    {
+                        Room selectedRoom = (Room)neighborComboBox.SelectedItem;
+
+                        if (selectedRoom != null)
+                        {
+                            if (selectedRoom == NoNeighbor)
+                            {
+                                _room.RemoveNeighbor(Direction);
+                            }
+                            else
+                            {
+                                _room.AssignNeighbor(Direction, selectedRoom);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public Room _SelectedRoom;
