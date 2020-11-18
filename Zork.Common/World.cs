@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -9,26 +9,29 @@ namespace Zork
     public class World : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<Room> Rooms { get; set; } = new List<Room>();
 
-        public IReadOnlyDictionary<string, Room> GetRoomsByName() => mRoomsByName;
+        public List<Room> Rooms { get; set; }
+
+        [JsonIgnore]
+        public IReadOnlyDictionary<string, Room> RoomsByName => _roomsByName;
 
         public World()
         {
             Rooms = new List<Room>();
+            _roomsByName = new Dictionary<string, Room>();
         }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            mRoomsByName = Rooms.ToDictionary(room => room.Name, room => room);
+            _roomsByName = Rooms.ToDictionary(room => room.Name, room => room);
 
             foreach (Room room in Rooms)
             {
                 room.UpdateNeighbors(this);
             }
-        }
+        } 
 
-        private Dictionary<string, Room> mRoomsByName;
+        private Dictionary<string, Room> _roomsByName;
     }
 }

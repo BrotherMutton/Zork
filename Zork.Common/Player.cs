@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace Zork
 {
@@ -10,13 +9,17 @@ namespace Zork
         [JsonIgnore]
         public Room Location { get; private set; }
 
+        public int Moves { get; set; }
+
+        public int Score { get; set; }
+
         public Player(World world, string startingLocation)
         {
-            Assert.IsNotNull(world);
-            Assert.IsTrue(world.GetRoomsByName().ContainsKey(startingLocation));
+            Assert.IsTrue(world != null);
+            Assert.IsTrue(world.RoomsByName.ContainsKey(startingLocation));
 
             World = world;
-            Location = world.GetRoomsByName()[startingLocation];
+            Location = world.RoomsByName[startingLocation];
         }
 
         public bool Move(Directions direction)
